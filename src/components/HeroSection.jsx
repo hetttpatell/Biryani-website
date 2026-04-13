@@ -1,8 +1,9 @@
 import React, { useEffect, useRef, useState, useCallback } from 'react';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
+import { ScrollToPlugin } from 'gsap/ScrollToPlugin';
 
-gsap.registerPlugin(ScrollTrigger);
+gsap.registerPlugin(ScrollTrigger, ScrollToPlugin);
 
 // ── Smoke Frame Config ──
 const TOTAL_FRAMES = 240;
@@ -142,6 +143,8 @@ const HeroSection = () => {
 
   const [isLoaded, setIsLoaded] = useState(false);
   const [loadProgress, setLoadProgress] = useState(0);
+  const [isAutoScrolling, setIsAutoScrolling] = useState(false);
+  const scrollTriggerRef = useRef(null);
 
   // ── Draw a smoke frame on canvas with "cover" scaling ──
   const drawFrame = useCallback((frameIndex) => {
@@ -274,6 +277,7 @@ const HeroSection = () => {
             scrub: 0.4,
             pin: true,
             anticipatePin: 1,
+            onRefresh: (self) => { scrollTriggerRef.current = self; },
           },
         });
 
@@ -339,6 +343,21 @@ const HeroSection = () => {
       ctx.revert();
     };
   }, [isLoaded, drawFrame, resizeCanvas]);
+
+  // ── Auto Scroll Logic (Mobile Only) ──
+  const handleAutoScroll = () => {
+    if (!scrollTriggerRef.current || isAutoScrolling) return;
+    
+    setIsAutoScrolling(true);
+    const trigger = scrollTriggerRef.current;
+    
+    gsap.to(window, {
+      scrollTo: trigger.start + (window.innerWidth < 768 ? 5000 : 6000),
+      duration: 3.5,
+      ease: "power2.inOut",
+      onComplete: () => setIsAutoScrolling(false)
+    });
+  };
 
   // ── Mouse Parallax (desktop only) ──
   const handleMouseMove = (e) => {
@@ -451,8 +470,8 @@ const HeroSection = () => {
           ref={imgWrapRef}
           className="absolute z-10 flex items-center justify-center pointer-events-none"
           style={{
-            width: 'min(95vw, 720px)',
-            height: 'min(95vw, 720px)',
+            width: 'min(98vw, 720px)',
+            height: 'min(98vw, 720px)',
             filter: 'drop-shadow(0 30px 60px rgba(0,0,0,0.8)) drop-shadow(0 0 100px rgba(139,90,20,0.15))',
           }}
         >
@@ -462,6 +481,45 @@ const HeroSection = () => {
             alt="Royal Biryani — House of Biryani and Rolls"
             className="w-full h-full object-contain will-change-transform"
           />
+        </div>
+
+        {/* ── Mobile Auto-Explore Button ── */}
+        <div className="absolute z-[40] md:hidden bottom-24 flex flex-col items-center">
+          <button
+            onClick={handleAutoScroll}
+            className={`group relative flex items-center gap-3 px-6 py-3 bg-black/40 backdrop-blur-md border border-gold/30 rounded-full transition-all duration-500 ${isAutoScrolling ? 'opacity-50 pointer-events-none' : 'opacity-100 hover:border-gold'}`}
+          >
+            <div className="relative w-5 h-5 flex items-center justify-center">
+              {/* Spinning Progress Ring */}
+              <svg className="absolute inset-0 w-full h-full -rotate-90">
+                <circle
+                  cx="10" cy="10" r="8"
+                  fill="none"
+                  stroke="currentColor"
+                  strokeWidth="1.5"
+                  className="text-gold/20"
+                />
+                <circle
+                  cx="10" cy="10" r="8"
+                  fill="none"
+                  stroke="currentColor"
+                  strokeWidth="1.5"
+                  strokeDasharray="50"
+                  strokeDashoffset={isAutoScrolling ? "0" : "50"}
+                  className="text-gold transition-all duration-[3500ms] linear"
+                />
+              </svg>
+              <svg width="8" height="8" viewBox="0 0 8 8" fill="none" className="relative z-10">
+                <path d="M7 4L2 1V7L7 4Z" fill="currentColor" className="text-gold" />
+              </svg>
+            </div>
+            <span className="text-gold text-[10px] tracking-[0.3em] font-header uppercase whitespace-nowrap">
+              {isAutoScrolling ? 'Experiencing...' : 'Auto Explore'}
+            </span>
+          </button>
+          <p className="text-white/20 text-[7px] mt-2 tracking-[0.2em] uppercase font-body">
+            3-Second Cinematic Journey
+          </p>
         </div>
 
         {/* ── Scroll Indicator ── */}
@@ -491,19 +549,19 @@ const HeroSection = () => {
         {/* ── Story Panel: Chapter I — The Grain ── */}
         <div
           ref={story1Ref}
-          className="absolute z-20 text-center md:text-left pointer-events-none flex flex-col w-[85%] md:w-auto md:max-w-[400px] left-1/2 md:left-[7%] bottom-[8%] md:bottom-auto md:top-1/2"
+          className="absolute z-20 text-center md:text-left pointer-events-none flex flex-col w-[85%] md:w-auto md:max-w-[400px] left-1/2 md:left-[7%] bottom-[12%] md:bottom-auto md:top-1/2"
         >
-          <span className="text-[#E8C36A] text-[10px] md:text-[9px] uppercase tracking-[0.6em] font-body mb-2 font-semibold">
+          <span className="text-[#E8C36A] text-[11px] md:text-[9px] uppercase tracking-[0.6em] font-body mb-2 font-semibold">
             Chapter I
           </span>
           <div className="w-8 h-[1px] bg-[#E8C36A]/50 mb-3 md:mb-4 mx-auto md:mx-0" />
           <h2
             className="text-white font-header tracking-tight mb-2 md:mb-4"
-            style={{ fontSize: 'clamp(32px, 8vw, 52px)', lineHeight: 1.05, textShadow: '0 4px 30px rgba(0,0,0,1)' }}
+            style={{ fontSize: 'clamp(36px, 10vw, 52px)', lineHeight: 1.05, textShadow: '0 4px 30px rgba(0,0,0,1)' }}
           >
             The Grain.
           </h2>
-          <p className="text-white/90 font-body text-sm md:text-lg leading-relaxed max-w-sm" style={{ textShadow: '0 2px 15px rgba(0,0,0,1), 0 4px 25px rgba(0,0,0,0.8)' }}>
+          <p className="text-white/90 font-body text-sm md:text-lg lg:text-xl leading-relaxed max-w-sm" style={{ textShadow: '0 2px 15px rgba(0,0,0,1), 0 4px 25px rgba(0,0,0,0.8)' }}>
             Aged Basmati — selected not by machines, but by masters.
             Every grain elongates to its absolute limit, providing the
             perfect canvas for our ancestral spice blends.
@@ -513,19 +571,19 @@ const HeroSection = () => {
         {/* ── Story Panel: Chapter II — The Dum ── */}
         <div
           ref={story2Ref}
-          className="absolute z-20 text-center md:text-right pointer-events-none flex flex-col w-[85%] md:w-auto md:max-w-[400px] left-1/2 md:left-auto md:right-[7%] bottom-[8%] md:bottom-auto md:top-1/2"
+          className="absolute z-20 text-center md:text-right pointer-events-none flex flex-col w-[85%] md:w-auto md:max-w-[400px] left-1/2 md:left-auto md:right-[7%] bottom-[12%] md:bottom-auto md:top-1/2"
         >
-          <span className="text-[#E8C36A] text-[10px] md:text-[9px] uppercase tracking-[0.6em] font-body mb-2 md:text-right font-semibold">
+          <span className="text-[#E8C36A] text-[11px] md:text-[9px] uppercase tracking-[0.6em] font-body mb-2 md:text-right font-semibold">
             Chapter II
           </span>
           <div className="w-8 h-[1px] bg-[#E8C36A]/50 mb-3 md:mb-4 mx-auto md:ml-auto md:mr-0" />
           <h2
             className="text-white font-header tracking-tight mb-2 md:mb-4"
-            style={{ fontSize: 'clamp(32px, 8vw, 52px)', lineHeight: 1.05, textShadow: '0 4px 30px rgba(0,0,0,1)' }}
+            style={{ fontSize: 'clamp(36px, 10vw, 52px)', lineHeight: 1.05, textShadow: '0 4px 30px rgba(0,0,0,1)' }}
           >
             The Dum.
           </h2>
-          <p className="text-white/90 font-body text-sm md:text-lg leading-relaxed max-w-sm md:ml-auto" style={{ textShadow: '0 2px 15px rgba(0,0,0,1), 0 4px 25px rgba(0,0,0,0.8)' }}>
+          <p className="text-white/90 font-body text-sm md:text-lg lg:text-xl leading-relaxed max-w-sm md:ml-auto" style={{ textShadow: '0 2px 15px rgba(0,0,0,1), 0 4px 25px rgba(0,0,0,0.8)' }}>
             Sealed in steam. Left undisturbed. The pot breathes in silence
             as ingredients meld into a state of pure, unhurried harmony.
             True flavor needs patience — not shortcuts.
@@ -535,20 +593,20 @@ const HeroSection = () => {
         {/* ── Story Panel: Chapter III — The Promise ── */}
         <div
           ref={story3Ref}
-          className="absolute z-20 text-center pointer-events-none flex flex-col items-center w-[85%] md:w-auto md:max-w-[500px] left-1/2 bottom-[6%] md:bottom-auto md:top-[78%]"
+          className="absolute z-20 text-center pointer-events-none flex flex-col items-center w-[85%] md:w-auto md:max-w-[500px] left-1/2 bottom-[10%] md:bottom-auto md:top-[78%]"
           style={{ transform: 'translateX(-50%)' }}
         >
-          <span className="text-[#E8C36A] text-[10px] md:text-[9px] uppercase tracking-[0.6em] font-body mb-2 font-semibold">
+          <span className="text-[#E8C36A] text-[11px] md:text-[9px] uppercase tracking-[0.6em] font-body mb-2 font-semibold">
             Chapter III
           </span>
           <div className="w-8 h-[1px] bg-[#E8C36A]/50 mb-3 md:mb-4" />
           <h2
             className="text-white font-header tracking-tight mb-2 md:mb-4"
-            style={{ fontSize: 'clamp(32px, 8vw, 52px)', lineHeight: 1.05, textShadow: '0 4px 30px rgba(0,0,0,1)' }}
+            style={{ fontSize: 'clamp(36px, 10vw, 52px)', lineHeight: 1.05, textShadow: '0 4px 30px rgba(0,0,0,1)' }}
           >
             The Promise.
           </h2>
-          <p className="text-white/90 font-body text-sm md:text-lg leading-relaxed max-w-md bg-black/20 md:bg-transparent rounded-lg md:rounded-none px-2 py-1 md:p-0" style={{ textShadow: '0 2px 15px rgba(0,0,0,1), 0 4px 25px rgba(0,0,0,0.8)' }}>
+          <p className="text-white/90 font-body text-sm md:text-lg lg:text-xl leading-relaxed max-w-md bg-black/40 md:bg-transparent rounded-lg md:rounded-none px-4 py-3 md:p-0 border border-gold/10 md:border-none backdrop-blur-md md:backdrop-blur-none" style={{ textShadow: '0 2px 15px rgba(0,0,0,1), 0 4px 25px rgba(0,0,0,0.8)' }}>
             From our kitchen to your table — every biryani and every roll
             is a promise of authenticity. No compromises. No shortcuts.
             Just the relentless pursuit of perfection.

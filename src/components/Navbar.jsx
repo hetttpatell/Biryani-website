@@ -112,30 +112,30 @@ const Navbar = ({ setView, currentView }) => {
           {/* Center Ribbon */}
           <div
             ref={ribbonRef}
-            className="flex flex-col items-center justify-center bg-black/80 backdrop-blur-md border border-t-0 border-gold/30 text-white px-8 py-6 shadow-[0_15px_40px_rgba(212,165,71,0.1)]"
+            className="flex flex-col items-center justify-center bg-black/80 backdrop-blur-md border border-t-0 border-gold/30 text-white px-4 md:px-8 py-3 md:py-6 shadow-[0_15px_40px_rgba(212,165,71,0.1)]"
             style={{
-              minHeight: '120px',
+              minHeight: window.innerWidth < 768 ? '80px' : '120px',
               borderBottomLeftRadius: '4px',
               borderBottomRightRadius: '4px'
             }}
           >
             {/* Hamburger Button Lines */}
             <button 
-              className="relative w-7 h-6 mb-2 flex items-center justify-center cursor-pointer group"
+              className="relative w-6 md:w-7 h-5 md:h-6 mb-1 md:mb-2 flex items-center justify-center cursor-pointer group"
               onClick={() => setIsMenuOpen(!isMenuOpen)}
               aria-label="Toggle Menu"
             >
-              <div className="relative w-7 h-2.5">
-                <span ref={line1Ref} className="absolute top-0 left-0 block w-7 h-[2px] bg-gold group-hover:bg-white transition-colors origin-center"></span>
-                <span ref={line2Ref} className="absolute bottom-0 left-0 block w-7 h-[2px] bg-gold group-hover:bg-white transition-colors origin-center"></span>
+              <div className="relative w-full h-2.5">
+                <span ref={line1Ref} className="absolute top-0 left-0 block w-full h-[2px] bg-gold group-hover:bg-white transition-colors origin-center"></span>
+                <span ref={line2Ref} className="absolute bottom-0 left-0 block w-full h-[2px] bg-gold group-hover:bg-white transition-colors origin-center"></span>
               </div>
             </button>
 
             {/* Logo Icon and Text Stack */}
             <div ref={logoStackRef} className="flex flex-col items-center">
-              <span className="text-[40px] font-header font-bold text-gold leading-none">M</span>
-              <span className="text-[10px] tracking-[0.3em] font-header text-gold uppercase mt-2 font-medium">House of</span>
-              <span className="text-sm tracking-widest font-header text-white uppercase mt-0.5">Biryani and Rolls</span>
+              <span className="text-2xl md:text-[40px] font-header font-bold text-gold leading-none">M</span>
+              <span className="text-[7px] md:text-[10px] tracking-[0.3em] font-header text-gold uppercase mt-1 md:mt-2 font-medium">House of</span>
+              <span className="text-[10px] md:text-sm tracking-widest font-header text-white uppercase mt-0.5">Biryani and Rolls</span>
             </div>
           </div>
 
