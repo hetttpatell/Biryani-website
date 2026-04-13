@@ -92,19 +92,19 @@ const ParticleCanvas = ({ isLoaded }) => {
 // ── Decorative SVG Border Ornament ──
 const OrnamentCorner = ({ className = '', style = {} }) => (
   <svg className={className} style={style} viewBox="0 0 120 120" fill="none" xmlns="http://www.w3.org/2000/svg">
-    <path d="M5 115 Q5 5 115 5" stroke="url(#goldGrad)" strokeWidth="0.8" fill="none" opacity="0.5"/>
-    <path d="M15 115 Q15 15 115 15" stroke="url(#goldGrad)" strokeWidth="0.5" fill="none" opacity="0.3"/>
-    <circle cx="10" cy="10" r="2" fill="url(#goldGrad)" opacity="0.6"/>
-    <circle cx="115" cy="5" r="1.5" fill="url(#goldGrad)" opacity="0.4"/>
-    <circle cx="5" cy="115" r="1.5" fill="url(#goldGrad)" opacity="0.4"/>
+    <path d="M5 115 Q5 5 115 5" stroke="url(#goldGrad)" strokeWidth="0.8" fill="none" opacity="0.5" />
+    <path d="M15 115 Q15 15 115 15" stroke="url(#goldGrad)" strokeWidth="0.5" fill="none" opacity="0.3" />
+    <circle cx="10" cy="10" r="2" fill="url(#goldGrad)" opacity="0.6" />
+    <circle cx="115" cy="5" r="1.5" fill="url(#goldGrad)" opacity="0.4" />
+    <circle cx="5" cy="115" r="1.5" fill="url(#goldGrad)" opacity="0.4" />
     {/* Flourish */}
-    <path d="M60 5 Q55 25 40 35 Q55 30 60 50 Q65 30 80 35 Q65 25 60 5Z" fill="url(#goldGrad)" opacity="0.15"/>
-    <path d="M5 60 Q25 55 35 40 Q30 55 50 60 Q30 65 35 80 Q25 65 5 60Z" fill="url(#goldGrad)" opacity="0.15"/>
+    <path d="M60 5 Q55 25 40 35 Q55 30 60 50 Q65 30 80 35 Q65 25 60 5Z" fill="url(#goldGrad)" opacity="0.15" />
+    <path d="M5 60 Q25 55 35 40 Q30 55 50 60 Q30 65 35 80 Q25 65 5 60Z" fill="url(#goldGrad)" opacity="0.15" />
     <defs>
       <linearGradient id="goldGrad" x1="0%" y1="0%" x2="100%" y2="100%">
-        <stop offset="0%" stopColor="#E8C36A"/>
-        <stop offset="50%" stopColor="#D4A547"/>
-        <stop offset="100%" stopColor="#B8862D"/>
+        <stop offset="0%" stopColor="#E8C36A" />
+        <stop offset="50%" stopColor="#D4A547" />
+        <stop offset="100%" stopColor="#B8862D" />
       </linearGradient>
     </defs>
   </svg>
@@ -115,7 +115,7 @@ const GoldDivider = ({ className = '' }) => (
   <div className={`flex items-center gap-3 ${className}`}>
     <div className="h-[0.5px] flex-1 bg-gradient-to-r from-transparent via-gold/40 to-transparent" />
     <svg width="14" height="14" viewBox="0 0 14 14" fill="none">
-      <path d="M7 0 L8.5 5.5 L14 7 L8.5 8.5 L7 14 L5.5 8.5 L0 7 L5.5 5.5 Z" fill="#D4A547" opacity="0.5"/>
+      <path d="M7 0 L8.5 5.5 L14 7 L8.5 8.5 L7 14 L5.5 8.5 L0 7 L5.5 5.5 Z" fill="#D4A547" opacity="0.5" />
     </svg>
     <div className="h-[0.5px] flex-1 bg-gradient-to-r from-transparent via-gold/40 to-transparent" />
   </div>
@@ -299,15 +299,15 @@ const HeroSection = () => {
           // ── Stage 1 — Image scales up majestically ──
           .to(scrollHintRef.current, { opacity: 0, duration: 0.8 }, 0)
           .to(imgWrapRef.current, {
-            scale: isMobile ? 1.3 : 1.5,
-            yPercent: isMobile ? -35 : 0,
+            scale: isMobile ? 1.2 : 1.5,
+            yPercent: isMobile ? -15 : 0,
             duration: 2.5, ease: 'power2.inOut',
           }, 0)
 
           // ── Stage 2 — Image drifts, story 1 (The Grain) fades in ──
           .to(imgWrapRef.current, {
             xPercent: isMobile ? 0 : 32,
-            yPercent: isMobile ? -45 : 0,
+            yPercent: isMobile ? -25 : 0,
             duration: 3, ease: 'power2.inOut',
           }, 1.5)
           .to(story1Ref.current, { opacity: 1, x: 0, y: 0, filter: 'blur(0px)', duration: 2.2, ease: 'power2.out' }, 2.5)
@@ -316,7 +316,7 @@ const HeroSection = () => {
           // ── Stage 3 — Image drifts opposite, story 2 (The Dum) fades in ──
           .to(imgWrapRef.current, {
             xPercent: isMobile ? 0 : -32,
-            yPercent: isMobile ? -45 : 0,
+            yPercent: isMobile ? -25 : 0,
             duration: 3, ease: 'power2.inOut',
           }, 6.5)
           .to(story2Ref.current, { opacity: 1, x: 0, y: 0, filter: 'blur(0px)', duration: 2.2, ease: 'power2.out' }, 7.5)
@@ -325,8 +325,8 @@ const HeroSection = () => {
           // ── Stage 4 — Center, story 3 (The Promise) ──
           .to(imgWrapRef.current, {
             xPercent: 0,
-            yPercent: isMobile ? -45 : -8,
-            scale: isMobile ? 1.4 : 1.6,
+            yPercent: isMobile ? -20 : -8,
+            scale: isMobile ? 1.3 : 1.6,
             duration: 2.5, ease: 'power2.inOut',
           }, 11)
           .to(story3Ref.current, { opacity: 1, y: 0, filter: 'blur(0px)', duration: 2.2, ease: 'power2.out' }, 12)
@@ -345,19 +345,62 @@ const HeroSection = () => {
   }, [isLoaded, drawFrame, resizeCanvas]);
 
   // ── Auto Scroll Logic (Mobile Only) ──
-  const handleAutoScroll = () => {
-    if (!scrollTriggerRef.current || isAutoScrolling) return;
-    
-    setIsAutoScrolling(true);
+  const AUTO_SCROLL_DURATION = 9; // seconds
+
+  const stopAutoScroll = useCallback(() => {
+    gsap.killTweensOf(window);
+    setIsAutoScrolling(false);
+    document.documentElement.classList.remove('is-scrolling');
+  }, []);
+
+  const handleAutoScroll = useCallback(() => {
+    // Only runs on mobile
+    if (window.innerWidth >= 768) return;
+    if (!scrollTriggerRef.current) return;
+
+    // If already scrolling — act as Stop button
+    if (isAutoScrolling) {
+      stopAutoScroll();
+      return;
+    }
+
+    // Prepare for immediate, video-like playback
     const trigger = scrollTriggerRef.current;
-    
+    const targetScroll = trigger.start + 5000;
+
+    // Kill existing animations on window for instant takeover
+    gsap.killTweensOf(window);
+
+    // Switch state and class before starting tween
+    setIsAutoScrolling(true);
+    document.documentElement.classList.add('is-scrolling');
+
+    // Perform an immediate scroll jump to CURRENT position to flush any browser scroll-smooth buffers
+    gsap.set(window, { scrollTo: window.scrollY });
+
+    // Start the cinematic journey with zero delay
     gsap.to(window, {
-      scrollTo: trigger.start + (window.innerWidth < 768 ? 5000 : 6000),
-      duration: 4,
-      ease: "sine.inOut",
-      onComplete: () => setIsAutoScrolling(false)
+      scrollTo: targetScroll,
+      duration: AUTO_SCROLL_DURATION,
+      ease: 'none', // perfectly linear — constant cinematic drift
+      overwrite: true, // ensure this tween wins
+      onComplete: () => {
+        setIsAutoScrolling(false);
+        document.documentElement.classList.remove('is-scrolling');
+      },
+      onInterrupt: () => {
+        setIsAutoScrolling(false);
+        document.documentElement.classList.remove('is-scrolling');
+      },
     });
-  };
+  }, [isAutoScrolling, stopAutoScroll]);
+
+  // Stop on intentional swipe (wheel / mouse on desktop for safety)
+  useEffect(() => {
+    const onWheel = () => { if (isAutoScrolling) stopAutoScroll(); };
+    window.addEventListener('wheel', onWheel, { passive: true });
+    return () => window.removeEventListener('wheel', onWheel);
+  }, [isAutoScrolling, stopAutoScroll]);
 
   // ── Mouse Parallax (desktop only) ──
   const handleMouseMove = (e) => {
@@ -385,8 +428,14 @@ const HeroSection = () => {
         id="hero-section"
         onMouseMove={handleMouseMove}
         onMouseLeave={handleMouseLeave}
-        className="relative w-full h-screen overflow-hidden flex items-center justify-center bg-black font-body"
-        style={{ perspective: '1200px' }}
+        onClick={() => { if (isAutoScrolling) stopAutoScroll(); }}
+        className="relative w-full h-screen overflow-hidden flex items-center justify-center bg-black font-body cursor-default"
+        style={{
+          perspective: '1200px',
+          willChange: 'transform',
+          WebkitOverflowScrolling: 'touch',
+          touchAction: 'pan-y'
+        }}
       >
         {/* ── Loading Overlay ── */}
         <div
@@ -399,18 +448,18 @@ const HeroSection = () => {
             <div className="absolute inset-0 rounded-full" style={{
               border: '1px solid rgba(212, 165, 71, 0.15)',
               animation: 'loaderSpin 4s linear infinite',
-            }}/>
+            }} />
             <div className="absolute inset-2 rounded-full" style={{
               border: '1px solid rgba(212, 165, 71, 0.25)',
               animation: 'loaderSpin 3s linear infinite reverse',
-            }}/>
+            }} />
             <div className="absolute inset-4 rounded-full" style={{
               border: '1px solid rgba(212, 165, 71, 0.4)',
               animation: 'loaderPulse 2s ease-in-out infinite',
-            }}/>
+            }} />
             <div className="absolute inset-0 flex items-center justify-center">
               <svg width="20" height="20" viewBox="0 0 14 14" fill="none">
-                <path d="M7 0 L8.5 5.5 L14 7 L8.5 8.5 L7 14 L5.5 8.5 L0 7 L5.5 5.5 Z" fill="#D4A547" opacity="0.6"/>
+                <path d="M7 0 L8.5 5.5 L14 7 L8.5 8.5 L7 14 L5.5 8.5 L0 7 L5.5 5.5 Z" fill="#D4A547" opacity="0.6" />
               </svg>
             </div>
           </div>
@@ -473,6 +522,7 @@ const HeroSection = () => {
             width: 'min(98vw, 720px)',
             height: 'min(98vw, 720px)',
             filter: 'drop-shadow(0 30px 60px rgba(0,0,0,0.8)) drop-shadow(0 0 100px rgba(139,90,20,0.15))',
+            transform: 'translateZ(0)',
           }}
         >
           <img
@@ -483,21 +533,24 @@ const HeroSection = () => {
           />
         </div>
 
-        {/* ── Mobile Auto-Explore Button ── */}
-        <div className="absolute z-[40] md:hidden bottom-24 flex flex-col items-center">
+        {/* ── Mobile Action (Begin Journey / Stop) ── */}
+        <div className={`absolute z-[40] md:hidden bottom-24 flex flex-col items-center transition-all duration-700 ${isAutoScrolling ? 'opacity-0 pointer-events-none translate-y-4' : 'opacity-100'}`}>
           <button
-            onClick={handleAutoScroll}
-            className={`group relative flex items-center gap-3 px-6 py-3 bg-black/40 backdrop-blur-md border border-gold/30 rounded-full transition-all duration-500 ${isAutoScrolling ? 'opacity-50 pointer-events-none' : 'opacity-100 hover:border-gold'}`}
+            onClick={(e) => { e.stopPropagation(); handleAutoScroll(); }}
+            className={`group relative flex items-center gap-3 px-8 py-3.5 backdrop-blur-md border rounded-full transition-all duration-300 shadow-[0_0_30px_rgba(212,165,71,0.15)] active:scale-95 ${isAutoScrolling
+              ? 'bg-black/80 border-gold/70 scale-95'
+              : 'bg-black/60 border-gold/40 hover:border-gold hover:scale-105'
+              }`}
           >
             <div className="relative w-5 h-5 flex items-center justify-center">
-              {/* Spinning Progress Ring */}
+              {/* Progress Ring — animates over 20s matching scroll duration */}
               <svg className="absolute inset-0 w-full h-full -rotate-90">
                 <circle
                   cx="10" cy="10" r="8"
                   fill="none"
                   stroke="currentColor"
                   strokeWidth="1.5"
-                  className="text-gold/20"
+                  className="text-gold/10"
                 />
                 <circle
                   cx="10" cy="10" r="8"
@@ -505,20 +558,29 @@ const HeroSection = () => {
                   stroke="currentColor"
                   strokeWidth="1.5"
                   strokeDasharray="50"
-                  strokeDashoffset={isAutoScrolling ? "0" : "50"}
-                  className="text-gold transition-all duration-[4000ms] linear"
+                  strokeDashoffset={isAutoScrolling ? '0' : '50'}
+                  className="text-gold"
+                  style={{ transition: isAutoScrolling ? `stroke-dashoffset ${AUTO_SCROLL_DURATION}s linear` : 'stroke-dashoffset 0.3s ease' }}
                 />
               </svg>
-              <svg width="8" height="8" viewBox="0 0 8 8" fill="none" className="relative z-10">
-                <path d="M7 4L2 1V7L7 4Z" fill="currentColor" className="text-gold" />
-              </svg>
+              {/* Icon toggles between Play and Pause */}
+              {isAutoScrolling ? (
+                <svg width="8" height="8" viewBox="0 0 8 8" fill="none" className="relative z-10">
+                  <rect x="1" y="1" width="2.5" height="6" rx="0.5" fill="currentColor" className="text-gold" />
+                  <rect x="4.5" y="1" width="2.5" height="6" rx="0.5" fill="currentColor" className="text-gold" />
+                </svg>
+              ) : (
+                <svg width="8" height="8" viewBox="0 0 8 8" fill="none" className="relative z-10 translate-x-[0.5px]">
+                  <path d="M7 4L2 1V7L7 4Z" fill="currentColor" className="text-gold" />
+                </svg>
+              )}
             </div>
-            <span className="text-gold text-[10px] tracking-[0.3em] font-header uppercase whitespace-nowrap">
-              {isAutoScrolling ? 'Experiencing...' : 'Auto Explore'}
+            <span className="text-gold text-[11px] tracking-[0.4em] font-header uppercase whitespace-nowrap">
+              {isAutoScrolling ? 'Pause Journey' : 'Begin Journey'}
             </span>
           </button>
-          <p className="text-white/20 text-[7px] mt-2 tracking-[0.2em] uppercase font-body">
-            3-Second Cinematic Journey
+          <p className="text-white/30 text-[8px] mt-2.5 tracking-[0.3em] uppercase font-body font-light">
+            {isAutoScrolling ? 'Tap to pause' : 'Enter the Experience'}
           </p>
         </div>
 
@@ -529,7 +591,7 @@ const HeroSection = () => {
           style={{ bottom: 32, left: '50%', transform: 'translateX(-50%)' }}
         >
           <p className="text-white/15 text-[8px] font-body tracking-[0.45em] uppercase mb-3">
-            Scroll to Discover
+            Begin Experience
           </p>
           <div className="relative w-[1px] h-12 overflow-hidden">
             <div
@@ -549,7 +611,7 @@ const HeroSection = () => {
         {/* ── Story Panel: Chapter I — The Grain ── */}
         <div
           ref={story1Ref}
-          className="absolute z-20 text-center md:text-left pointer-events-none flex flex-col w-[85%] md:w-auto md:max-w-[400px] left-1/2 md:left-[7%] bottom-[12%] md:bottom-auto md:top-1/2"
+          className="absolute z-20 text-center md:text-left pointer-events-none flex flex-col w-[85%] md:w-auto md:max-w-[400px] left-1/2 md:left-[7%] bottom-[15%] md:bottom-auto md:top-1/2"
         >
           <span className="text-[#E8C36A] text-[11px] md:text-[9px] uppercase tracking-[0.6em] font-body mb-2 font-semibold">
             Chapter I
@@ -571,7 +633,7 @@ const HeroSection = () => {
         {/* ── Story Panel: Chapter II — The Dum ── */}
         <div
           ref={story2Ref}
-          className="absolute z-20 text-center md:text-right pointer-events-none flex flex-col w-[85%] md:w-auto md:max-w-[400px] left-1/2 md:left-auto md:right-[7%] bottom-[12%] md:bottom-auto md:top-1/2"
+          className="absolute z-20 text-center md:text-right pointer-events-none flex flex-col w-[85%] md:w-auto md:max-w-[400px] left-1/2 md:left-auto md:right-[7%] bottom-[15%] md:bottom-auto md:top-1/2"
         >
           <span className="text-[#E8C36A] text-[11px] md:text-[9px] uppercase tracking-[0.6em] font-body mb-2 md:text-right font-semibold">
             Chapter II
@@ -593,7 +655,7 @@ const HeroSection = () => {
         {/* ── Story Panel: Chapter III — The Promise ── */}
         <div
           ref={story3Ref}
-          className="absolute z-20 text-center pointer-events-none flex flex-col items-center w-[85%] md:w-auto md:max-w-[500px] left-1/2 bottom-[10%] md:bottom-auto md:top-[78%]"
+          className="absolute z-20 text-center pointer-events-none flex flex-col items-center w-[85%] md:w-auto md:max-w-[500px] left-1/2 bottom-[14%] md:bottom-auto md:top-[78%]"
           style={{ transform: 'translateX(-50%)' }}
         >
           <span className="text-[#E8C36A] text-[11px] md:text-[9px] uppercase tracking-[0.6em] font-body mb-2 font-semibold">
