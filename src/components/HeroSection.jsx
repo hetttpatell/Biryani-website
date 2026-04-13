@@ -353,8 +353,8 @@ const HeroSection = () => {
     
     gsap.to(window, {
       scrollTo: trigger.start + (window.innerWidth < 768 ? 5000 : 6000),
-      duration: 3.5,
-      ease: "power2.inOut",
+      duration: 4,
+      ease: "sine.inOut",
       onComplete: () => setIsAutoScrolling(false)
     });
   };
@@ -506,7 +506,7 @@ const HeroSection = () => {
                   strokeWidth="1.5"
                   strokeDasharray="50"
                   strokeDashoffset={isAutoScrolling ? "0" : "50"}
-                  className="text-gold transition-all duration-[3500ms] linear"
+                  className="text-gold transition-all duration-[4000ms] linear"
                 />
               </svg>
               <svg width="8" height="8" viewBox="0 0 8 8" fill="none" className="relative z-10">

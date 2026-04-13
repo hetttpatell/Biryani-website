@@ -107,16 +107,14 @@ const Navbar = ({ setView, currentView }) => {
       className="fixed top-0 left-0 w-full z-50 bg-transparent transition-all"
     >
       <div className="max-w-7xl mx-auto px-6 relative z-50">
-        <div className="flex justify-center h-20">
+        <div className="flex justify-center">
 
-          {/* Center Ribbon */}
           <div
             ref={ribbonRef}
-            className="flex flex-col items-center justify-center bg-black/80 backdrop-blur-md border border-t-0 border-gold/30 text-white px-4 md:px-8 py-3 md:py-6 shadow-[0_15px_40px_rgba(212,165,71,0.1)]"
+            className="flex flex-col items-center justify-center bg-black/80 backdrop-blur-md border border-t-0 border-gold/30 text-white px-4 md:px-8 py-3 md:py-6 shadow-[0_15px_40px_rgba(212,165,71,0.1)] min-h-[90px] md:min-h-[120px]"
             style={{
-              minHeight: window.innerWidth < 768 ? '80px' : '120px',
-              borderBottomLeftRadius: '4px',
-              borderBottomRightRadius: '4px'
+              borderBottomLeftRadius: '8px',
+              borderBottomRightRadius: '8px'
             }}
           >
             {/* Hamburger Button Lines */}
