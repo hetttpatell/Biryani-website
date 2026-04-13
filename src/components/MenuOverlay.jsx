@@ -111,27 +111,30 @@ const ProductCard = ({ item }) => {
       onMouseMove={handleMouseMove}
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={handleMouseLeave}
-      className="card-entrance relative flex flex-col glass-card h-[500px] overflow-hidden group cursor-pointer"
+      className="card-entrance relative flex flex-col glass-card min-h-[420px] overflow-hidden group cursor-pointer"
     >
       <div className={`absolute inset-0 bg-gold/5 opacity-0 transition-opacity duration-500 ${isHovered ? 'opacity-100' : ''}`} />
       <div className="absolute top-6 left-6 z-20">
         <span className="px-3 py-1 bg-gold/10 border border-gold/30 text-gold text-[10px] tracking-[0.2em] uppercase rounded-full">{item.tag}</span>
       </div>
-      <div className="relative h-64 flex items-center justify-center p-8 overflow-visible">
-        <div className="absolute w-40 h-40 bg-gold/10 rounded-full blur-[60px] opacity-30 group-hover:opacity-60 transition-opacity duration-500" />
-        <img ref={imgRef} src="/biryani.png" alt={item.title} className="w-full h-full object-contain relative z-10 floating-img-shadow transition-transform duration-500" />
-        <div className="absolute bottom-8 w-32 h-4 bg-black/60 blur-xl rounded-full transform scale-x-150 opacity-40" />
+      <div className="relative h-72 flex items-center justify-center p-4 overflow-visible">
+        <div className="absolute w-48 h-48 bg-gold/10 rounded-full blur-[70px] opacity-40 group-hover:opacity-70 transition-opacity duration-500" />
+        <img ref={imgRef} src="/biryani.png" alt={item.title} className="w-[95%] h-[95%] object-contain relative z-10 floating-img-shadow transition-transform duration-500" />
+        <div className="absolute bottom-4 w-40 h-5 bg-black/60 blur-xl rounded-full transform scale-x-150 opacity-40" />
       </div>
-      <div className="flex-grow p-8 flex flex-col justify-between relative z-10 bg-gradient-to-t from-black/80 to-transparent">
-        <div>
-          <div className="flex justify-between items-start mb-4">
-            <h3 className="font-header text-xl text-white tracking-widest leading-tight w-2/3 group-hover:text-gold transition-colors">{item.title}</h3>
-            <span className="font-header text-gold text-lg gold-glow">{item.price}</span>
+      <div className="flex-grow p-8 flex flex-col items-center text-center relative z-10 bg-gradient-to-t from-black/80 to-transparent">
+        <div className="w-full mb-6">
+          <div className="flex flex-col items-center mb-4">
+            <h3 className="font-header text-2xl text-white tracking-[0.15em] leading-tight mb-2 group-hover:text-gold transition-colors">{item.title}</h3>
+            <span className="font-header text-gold text-xl gold-glow">{item.price}</span>
           </div>
-          <p className="text-gray-400 font-body text-xs leading-relaxed mb-6 opacity-0 group-hover:opacity-100 transition-opacity duration-500 -translate-y-2 group-hover:translate-y-0">
+          <p className="text-gray-400 font-body text-xs leading-relaxed opacity-80 group-hover:opacity-100 transition-all duration-500 group-hover:text-white max-w-md mx-auto">
             {item.desc}
           </p>
-          <div className="grid grid-cols-3 gap-2 border-t border-white/10 pt-4">
+        </div>
+        
+        <div className="w-full">
+          <div className="grid grid-cols-3 gap-6 border-y border-white/10 py-6 mb-6">
             {Object.entries(item.stats).map(([key, val]) => (
               <div key={key} className="text-center">
                 <p className="text-[8px] text-gold/60 uppercase tracking-widest mb-1">{key}</p>
@@ -139,12 +142,9 @@ const ProductCard = ({ item }) => {
               </div>
             ))}
           </div>
-        </div>
-        <div className="mt-6 flex justify-between items-center">
-          <span className="text-[9px] text-gray-500 font-body uppercase tracking-tighter italic">{item.origin}</span>
-          <button className="px-4 py-2 border border-gold/40 text-gold text-[10px] tracking-widest hover:bg-gold hover:text-black transition-all duration-300 rounded-sm">
-            EXPERIENCE
-          </button>
+          <div className="text-center">
+            <span className="text-[10px] text-gold/40 font-body uppercase tracking-[0.3em] italic">{item.origin}</span>
+          </div>
         </div>
       </div>
     </div>
@@ -259,28 +259,6 @@ const CompactCard = ({ item }) => {
           ))}
         </div>
 
-        {/* Order CTA */}
-        <button
-          onTouchStart={(e) => { e.currentTarget.style.background = 'rgba(212,175,55,0.18)'; }}
-          onTouchEnd={(e) => { e.currentTarget.style.background = 'transparent'; }}
-          style={{
-            marginTop: 'auto',
-            width: '100%',
-            padding: '7px 0',
-            fontSize: '8px',
-            letterSpacing: '0.2em',
-            color: '#D4AF37',
-            border: '1px solid rgba(212,175,55,0.32)',
-            borderRadius: '2px',
-            background: 'transparent',
-            textTransform: 'uppercase',
-            cursor: 'pointer',
-            fontWeight: 600,
-            transition: 'background 0.15s ease',
-          }}
-        >
-          Order Now
-        </button>
       </div>
     </div>
   );
@@ -377,7 +355,7 @@ const MenuOverlay = ({ onBack }) => {
         </div>
       </nav>
 
-      <div className="max-w-7xl mx-auto px-4 md:px-6 pt-40 pb-32 relative z-10">
+      <div className="max-w-[1440px] mx-auto px-4 md:px-6 pt-40 pb-32 relative z-10">
 
         <header ref={headerRef} className="mb-24 text-center">
           <div className="menu-header-item inline-block mb-4">
@@ -427,10 +405,10 @@ const MenuOverlay = ({ onBack }) => {
             display: 'grid',
             // Mobile: 2-col compact OR 1-col full; Desktop via className override
             gridTemplateColumns: showCompactGrid ? 'repeat(2, 1fr)' : 'repeat(1, 1fr)',
-            gap: showCompactGrid ? '12px' : '32px',
+            gap: showCompactGrid ? '12px' : '48px',
           }}
           // Desktop overrides via Tailwind (these win on md+)
-          className="md:!grid-cols-2 lg:!grid-cols-3 md:!gap-8"
+          className="md:!grid-cols-2 lg:!grid-cols-2 md:!gap-12"
         >
           {filteredItems.map((item) =>
             showCompactGrid

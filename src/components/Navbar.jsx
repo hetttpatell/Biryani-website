@@ -48,7 +48,7 @@ const Navbar = ({ setView, currentView }) => {
   const line1Ref = useRef(null);
   const line2Ref = useRef(null);
   const logoStackRef = useRef(null);
-  
+
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const timeline = useRef(null);
 
@@ -118,7 +118,7 @@ const Navbar = ({ setView, currentView }) => {
             }}
           >
             {/* Hamburger Button Lines */}
-            <button 
+            <button
               className="relative w-6 md:w-7 h-5 md:h-6 mb-1 md:mb-2 flex items-center justify-center cursor-pointer group"
               onClick={() => setIsMenuOpen(!isMenuOpen)}
               aria-label="Toggle Menu"
@@ -131,7 +131,7 @@ const Navbar = ({ setView, currentView }) => {
 
             {/* Logo Icon and Text Stack */}
             <div ref={logoStackRef} className="flex flex-col items-center">
-              <span className="text-2xl md:text-[40px] font-header font-bold text-gold leading-none">M</span>
+              <span className="text-2xl md:text-[40px] font-header font-bold text-gold leading-none">H</span>
               <span className="text-[7px] md:text-[10px] tracking-[0.3em] font-header text-gold uppercase mt-1 md:mt-2 font-medium">House of</span>
               <span className="text-[10px] md:text-sm tracking-widest font-header text-white uppercase mt-0.5">Biryani and Rolls</span>
             </div>
@@ -146,24 +146,24 @@ const Navbar = ({ setView, currentView }) => {
       >
         <ul className="flex flex-col items-center gap-8 text-3xl font-header tracking-[0.2em]">
           <li>
-            <button 
-              onClick={() => handleNavigate('home')} 
+            <button
+              onClick={() => handleNavigate('home')}
               className={`hover:text-gold transition-colors ${currentView === 'home' ? 'text-gold' : 'text-white'}`}
             >
               HOME
             </button>
           </li>
           <li>
-            <button 
-              onClick={() => handleNavigate('menu')} 
+            <button
+              onClick={() => handleNavigate('menu')}
               className={`hover:text-gold transition-colors ${currentView === 'menu' ? 'text-gold' : 'text-white'}`}
             >
               MENU
             </button>
           </li>
           <li>
-            <button 
-              onClick={() => handleNavigate('contact')} 
+            <button
+              onClick={() => handleNavigate('contact')}
               className={`hover:text-gold transition-colors ${currentView === 'contact' ? 'text-gold' : 'text-white'}`}
             >
               CONTACT
