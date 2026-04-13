@@ -230,6 +230,7 @@ const ChefIntro = () => {
                   position: 'relative',
                   background: 'linear-gradient(135deg, #1a1208, #0a0806)',
                 }}>
+                  {/* testing */}
                   <img
                     src="/Chef.jpg"
                     alt="Chef — Executive Curator & Visionary"
