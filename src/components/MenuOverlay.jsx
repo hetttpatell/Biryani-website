@@ -408,7 +408,7 @@ const MenuOverlay = ({ onBack }) => {
             gap: showCompactGrid ? '12px' : '48px',
           }}
           // Desktop overrides via Tailwind (these win on md+)
-          className="md:!grid-cols-2 lg:!grid-cols-2 md:!gap-12"
+          className="md:!grid-cols-2 lg:!grid-cols-4 md:!gap-12"
         >
           {filteredItems.map((item) =>
             showCompactGrid
