@@ -233,7 +233,7 @@ const HeroSection = () => {
 
     const ctx = gsap.context(() => {
       // ── Set initial states ──
-      gsap.set(imgRef.current, { scale: 0.5, opacity: 0, filter: 'blur(40px)' });
+      gsap.set(imgRef.current, { scale: 0.5, opacity: 0, filter: 'blur(15px)', force3D: true });
       gsap.set(scrollHintRef.current, { opacity: 0 });
 
       // ── Grand Entrance Timeline ──
@@ -273,68 +273,71 @@ const HeroSection = () => {
           scrollTrigger: {
             trigger: containerRef.current,
             start: 'top top',
-            end: isMobile ? '+=5000' : '+=6000',
-            scrub: 0.4,
+            end: '+=5000',
+            scrub: isMobile ? 0.8 : 0.4,
             pin: true,
             anticipatePin: 1,
             onRefresh: (self) => { scrollTriggerRef.current = self; },
           },
         });
 
-        tl
-          // ── Smoke frame scrubbing — synced to full timeline duration ──
-          .to(frameObj, {
-            value: TOTAL_FRAMES - 1,
-            duration: 16.7,
-            ease: 'none',
-            onUpdate: () => {
-              const frame = Math.round(frameObj.value);
-              if (frame !== currentFrameRef.current) {
-                currentFrameRef.current = frame;
-                drawFrame(frame);
-              }
-            },
-          }, 0)
+        tl.to(frameObj, {
+          value: TOTAL_FRAMES - 1,
+          duration: 16.7,
+          ease: 'none',
+          onUpdate: () => {
+            const frame = Math.round(frameObj.value);
+            if (frame !== currentFrameRef.current) {
+              currentFrameRef.current = frame;
+              drawFrame(frame);
+            }
+          },
+        }, 0);
 
+        tl
           // ── Stage 1 — Image scales up majestically ──
           .to(scrollHintRef.current, { opacity: 0, duration: 0.8 }, 0)
           .to(imgWrapRef.current, {
             scale: isMobile ? 1.2 : 1.5,
-            yPercent: isMobile ? -15 : 0,
+            yPercent: isMobile ? -10 : 0,
             duration: 2.5, ease: 'power2.inOut',
+            force3D: true,
           }, 0)
 
           // ── Stage 2 — Image drifts, story 1 (The Grain) fades in ──
           .to(imgWrapRef.current, {
             xPercent: isMobile ? 0 : 32,
-            yPercent: isMobile ? -25 : 0,
+            yPercent: isMobile ? -12 : 0,
             duration: 3, ease: 'power2.inOut',
-          }, 1.5)
-          .to(story1Ref.current, { opacity: 1, x: 0, y: 0, filter: 'blur(0px)', duration: 2.2, ease: 'power2.out' }, 2.5)
-          .to(story1Ref.current, { opacity: 0, x: isMobile ? 0 : -40, y: -30, filter: 'blur(20px)', duration: 1.8, ease: 'power2.in' }, 5.5)
+            force3D: true,
+          }, 2.5) // Moved to 2.5 to avoid overlap with Stage 1
+          .to(story1Ref.current, { opacity: 1, x: 0, y: 0, filter: 'blur(0px)', duration: 2.2, ease: 'power2.out' }, 3.5)
+          .to(story1Ref.current, { opacity: 0, x: isMobile ? 0 : -40, y: -30, filter: 'blur(20px)', duration: 1.8, ease: 'power2.in' }, 6.0)
 
           // ── Stage 3 — Image drifts opposite, story 2 (The Dum) fades in ──
           .to(imgWrapRef.current, {
             xPercent: isMobile ? 0 : -32,
-            yPercent: isMobile ? -25 : 0,
+            yPercent: isMobile ? -24 : 0,
             duration: 3, ease: 'power2.inOut',
-          }, 6.5)
-          .to(story2Ref.current, { opacity: 1, x: 0, y: 0, filter: 'blur(0px)', duration: 2.2, ease: 'power2.out' }, 7.5)
-          .to(story2Ref.current, { opacity: 0, x: isMobile ? 0 : 40, y: -30, filter: 'blur(20px)', duration: 1.8, ease: 'power2.in' }, 10.5)
+            force3D: true,
+          }, 7.0)
+          .to(story2Ref.current, { opacity: 1, x: 0, y: 0, filter: 'blur(0px)', duration: 2.2, ease: 'power2.out' }, 8.0)
+          .to(story2Ref.current, { opacity: 0, x: isMobile ? 0 : 40, y: -30, filter: 'blur(20px)', duration: 1.8, ease: 'power2.in' }, 11.0)
 
           // ── Stage 4 — Center, story 3 (The Promise) ──
           .to(imgWrapRef.current, {
             xPercent: 0,
-            yPercent: isMobile ? -20 : -8,
-            scale: isMobile ? 1.3 : 1.6,
+            yPercent: isMobile ? -18 : -8,
+            scale: isMobile ? 1.2 : 1.6,
             duration: 2.5, ease: 'power2.inOut',
-          }, 11)
-          .to(story3Ref.current, { opacity: 1, y: 0, filter: 'blur(0px)', duration: 2.2, ease: 'power2.out' }, 12)
-          .to(story3Ref.current, { opacity: 0, y: -30, filter: 'blur(20px)', duration: 1.8, ease: 'power2.in' }, 14.5)
+            force3D: true,
+          }, 12)
+          .to(story3Ref.current, { opacity: 1, y: 0, filter: 'blur(0px)', duration: 2.2, ease: 'power2.out' }, 13)
+          .to(story3Ref.current, { opacity: 0, y: -30, filter: 'blur(20px)', duration: 1.8, ease: 'power2.in' }, 15.5)
 
           // ── Stage 5 — Return to origin ──
-          .to(imgWrapRef.current, { xPercent: 0, yPercent: 0, scale: 1, duration: 2.5, ease: 'power3.inOut' }, 14)
-          .to(scrollHintRef.current, { opacity: 1, duration: 1.2 }, 15.5);
+          .to(imgWrapRef.current, { xPercent: 0, yPercent: 0, scale: 1, duration: 2.5, ease: 'power3.inOut', force3D: true }, 15)
+          .to(scrollHintRef.current, { opacity: 1, duration: 1.2 }, 16.5);
       });
     }, containerRef);
 
@@ -519,10 +522,11 @@ const HeroSection = () => {
           ref={imgWrapRef}
           className="absolute z-10 flex items-center justify-center pointer-events-none"
           style={{
-            width: 'min(98vw, 720px)',
-            height: 'min(98vw, 720px)',
+            width: 'min(90vw, 720px)',
+            height: 'min(90vw, 720px)',
             filter: 'drop-shadow(0 30px 60px rgba(0,0,0,0.8)) drop-shadow(0 0 100px rgba(139,90,20,0.15))',
             transform: 'translateZ(0)',
+            willChange: 'transform',
           }}
         >
           <img
