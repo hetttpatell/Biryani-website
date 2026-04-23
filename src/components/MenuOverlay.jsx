@@ -5,71 +5,71 @@ const menuItems = [
   {
     id: 1, title: "HYDERABADI BIRYANI", category: "BIRYANI", price: "₹350 / ₹450",
     tag: "Signature", desc: "A royal feast of tender meat and long-grain basmati rice, infused with saffron and traditional spices.",
-    stats: { grain: "8.5mm", aroma: "Intense", spice: "High" }, origin: "Nizam's Tradition",
-    isNonVeg: true, servings: "1 / 2 Persons", spiceLevel: "Medium", pieces: "Premium Cut",
+    origin: "Nizam's Tradition",
+    isNonVeg: true, servings: "1 / 2 Persons", spiceLevel: "Medium",
     socialProof: "4.9 ★ 2k+",
   },
   {
     id: 2, title: "VEG DUM BIRYANI", category: "BIRYANI", price: "₹380 / ₹490",
     tag: "Garden Fresh", desc: "Fragrant basmati rice layered with seasonal vegetables and slow-cooked in a sealed handi.",
-    stats: { grain: "8.2mm", aroma: "Floral", spice: "Balanced" }, origin: "North Indian Plains",
-    isNonVeg: false, servings: "1 / 2 Persons", spiceLevel: "Mild", pieces: "Assorted Veg",
+    origin: "North Indian Plains",
+    isNonVeg: false, servings: "1 / 2 Persons", spiceLevel: "Mild",
     socialProof: "4.8 ★ 1.2k+",
   },
   {
     id: 3, title: "SHAHI CHHAP BIRYANI", category: "BIRYANI", price: "₹380 / ₹490",
     tag: "Royal Choice", desc: "Luxurious vegetarian delight featuring succulent soya chaap pieces marinated in rich spices.",
-    stats: { grain: "8.0mm", aroma: "Rich", spice: "Medium" }, origin: "Mughalai Fusion",
-    isNonVeg: false, servings: "1 / 2 Persons", spiceLevel: "Medium", pieces: "6-8 Pcs",
+    origin: "Mughalai Fusion",
+    isNonVeg: false, servings: "1 / 2 Persons", spiceLevel: "Medium",
     socialProof: "4.7 ★ 900+",
   },
   {
     id: 4, title: "DUM BIRYANI", category: "BIRYANI", price: "₹370 / ₹490",
     tag: "Classic", desc: "The quintessential slow-cooked perfection, where every grain of rice is infused with heirloom spices.",
-    stats: { grain: "7.8mm", aroma: "Earthy", spice: "Balanced" }, origin: "Heritage Kitchen",
-    isNonVeg: true, servings: "1 / 2 Persons", spiceLevel: "Medium", pieces: "4 Pcs",
+    origin: "Heritage Kitchen",
+    isNonVeg: true, servings: "1 / 2 Persons", spiceLevel: "Medium",
     socialProof: "4.6 ★ 3.2k+",
   },
   {
     id: 5, title: "SPECIAL HOB BIRYANI", category: "BIRYANI", price: "₹390 / ₹550",
     tag: "House Special", desc: "Our signature masterpiece, a complex blend of flavors crafted for the ultimate biryani experience.",
-    stats: { grain: "8.8mm", aroma: "Majestic", spice: "Perfect" }, origin: "House of Biryani",
-    isNonVeg: true, servings: "1 / 2 Persons", spiceLevel: "Spicy", pieces: "6 Pcs",
+    origin: "House of Biryani",
+    isNonVeg: true, servings: "1 / 2 Persons", spiceLevel: "Spicy",
     socialProof: "5.0 ★ 500+",
   },
   {
     id: 6, title: "VEG ROLL", category: "ROLLS", price: "₹150",
     tag: "Quick Bite", desc: "Freshly sautéed vegetables wrapped in a soft, flaky paratha with tangy chutneys.",
-    stats: { size: "Regular", crust: "Flaky", filling: "Fresh" }, origin: "Street Style",
-    isNonVeg: false, servings: "Serves 1", spiceLevel: "Mild", pieces: "1 Roll",
+    origin: "Street Style",
+    isNonVeg: false, servings: "Serves 1", spiceLevel: "Mild",
     socialProof: "4.5 ★ 1.8k+",
   },
   {
     id: 7, title: "VEG CHHAP ROLL", category: "ROLLS", price: "₹200",
     tag: "Tandoori", desc: "Succulent soya chaap tossed in secret spices and grilled to smoky perfection.",
-    stats: { size: "Large", crust: "Toasted", filling: "Smoky" }, origin: "Grill House",
-    isNonVeg: false, servings: "Serves 1", spiceLevel: "Medium", pieces: "1 Roll",
+    origin: "Grill House",
+    isNonVeg: false, servings: "Serves 1", spiceLevel: "Medium",
     socialProof: "4.7 ★ 1.1k+",
   },
   {
     id: 8, title: "PANEER KATHI ROLL", category: "ROLLS", price: "₹250",
     tag: "Classic Kolkata", desc: "Tender paneer cubes with peppers and onions, drizzled with signature sauces.",
-    stats: { size: "X-Large", crust: "Butter", filling: "Creamy" }, origin: "Kolkata Streets",
-    isNonVeg: false, servings: "Serves 1", spiceLevel: "Medium", pieces: "1 Roll",
+    origin: "Kolkata Streets",
+    isNonVeg: false, servings: "Serves 1", spiceLevel: "Medium",
     socialProof: "4.8 ★ 2.5k+",
   },
   {
     id: 9, title: "MALAI CHHAP ROLL", category: "ROLLS", price: "₹300",
     tag: "Creamy", desc: "Melt-in-the-mouth malai chaap pieces wrapped in a soft roll with a hint of cardamom.",
-    stats: { size: "Large", crust: "Soft", filling: "Silky" }, origin: "Royal Kitchens",
-    isNonVeg: false, servings: "Serves 1", spiceLevel: "Mild", pieces: "1 Roll",
+    origin: "Royal Kitchens",
+    isNonVeg: false, servings: "Serves 1", spiceLevel: "Mild",
     socialProof: "4.9 ★ 800+",
   },
   {
     id: 10, title: "MUSHROOM TIKKA ROLL", category: "ROLLS", price: "₹250",
     tag: "Earthy", desc: "Marinated mushroom caps grilled in tandoor and rolled into a satisfying meal.",
-    stats: { size: "Regular", crust: "Crispy", filling: "Juicy" }, origin: "Clay Oven",
-    isNonVeg: false, servings: "Serves 1", spiceLevel: "Medium", pieces: "1 Roll",
+    origin: "Clay Oven",
+    isNonVeg: false, servings: "Serves 1", spiceLevel: "Medium",
     socialProof: "4.6 ★ 600+",
   },
 ];
@@ -233,7 +233,7 @@ const ProductCard = ({ item, index }) => {
         </div>
 
         {/* Stats strip */}
-        <div style={{
+        {/* <div style={{
           display: 'grid', gridTemplateColumns: '1fr 1fr 1fr',
           padding: '14px 0', marginBottom: 18,
           borderTop: '1px solid rgba(255,255,255,0.05)',
@@ -249,7 +249,7 @@ const ProductCard = ({ item, index }) => {
               <span className="font-header" style={{ fontSize: 11, color: '#fff', letterSpacing: '0.06em' }}>{val}</span>
             </div>
           ))}
-        </div>
+        </div> */}
 
         {/* Description */}
         <p className="font-body" style={{
@@ -266,7 +266,7 @@ const ProductCard = ({ item, index }) => {
         }}>
           <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
             <div style={{ display: 'flex', flexDirection: 'column', gap: 2 }}>
-              <span style={{ fontSize: 8, color: 'rgba(212,175,55,0.5)', letterSpacing: '0.2em', textTransform: 'uppercase', fontWeight: 600 }}>Investment</span>
+              <span style={{ fontSize: 8, color: 'rgba(212,175,55,0.5)', letterSpacing: '0.2em', textTransform: 'uppercase', fontWeight: 600 }}>Price</span>
               <div className="font-header" style={{ fontSize: 20, color: '#FFD700', letterSpacing: '0.02em' }}>{item.price}</div>
             </div>
             <div style={{ textAlign: 'right' }}>
