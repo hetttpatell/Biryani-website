@@ -5,8 +5,8 @@ const ContactPage = ({ onBack }) => {
   const containerRef = useRef(null);
   const contentRef = useRef(null);
   const [copied, setCopied] = useState(false);
-  
-  const phoneNumber = "+91 98765 43210";
+
+  const phoneNumber = "+91 9354019010";
   const address = "Connaught Place, New Delhi, Delhi 110001";
   const email = "hello@houseofbiryani.com";
 
@@ -40,7 +40,7 @@ const ContactPage = ({ onBack }) => {
   };
 
   return (
-    <div 
+    <div
       ref={containerRef}
       className="relative min-h-screen bg-black flex flex-col items-center justify-center px-6 overflow-hidden pt-20"
     >
@@ -69,7 +69,7 @@ const ContactPage = ({ onBack }) => {
           {/* Phone Section */}
           <div className="contact-item group">
             <h3 className="text-gold/40 text-[10px] uppercase tracking-[0.3em] mb-4 font-header">Calling</h3>
-            <div 
+            <div
               onClick={handleCopyPhone}
               className="relative cursor-pointer"
             >
@@ -94,9 +94,9 @@ const ContactPage = ({ onBack }) => {
               {address}
             </div>
             <div className="mt-4">
-              <a 
-                href="https://maps.google.com" 
-                target="_blank" 
+              <a
+                href="https://maps.google.com"
+                target="_blank"
                 className="text-[9px] text-gold/60 hover:text-gold uppercase tracking-[0.2em] font-header flex items-center gap-2 transition-all"
               >
                 <span>Direct Map View</span>
@@ -113,9 +113,9 @@ const ContactPage = ({ onBack }) => {
             </div>
             <div className="mt-8 flex gap-6">
               {['Instagram', 'Facebook', 'Twitter'].map((social) => (
-                <a 
+                <a
                   key={social}
-                  href="#" 
+                  href="#"
                   className="text-[10px] text-white/30 hover:text-gold transition-colors duration-300 uppercase tracking-widest"
                 >
                   {social}
