@@ -3,50 +3,78 @@ import gsap from 'gsap';
 
 const menuItems = [
   {
-    id: 1, title: "HYDERABADI DUM BIRYANI", category: "SIGNATURE", price: "₹850",
-    tag: "Chef's Reserve", desc: "Slow-cooked for 8 hours with aged basmati, saffron, and tender goat meat.",
-    stats: { grain: "8.5mm", aroma: "Intense", spice: "Balanced" }, origin: "Nizam's Kitchen, Hyderabad",
-    isNonVeg: true, servings: "Serves 1-2", spiceLevel: "Medium", pieces: "4-5 Pcs",
-    socialProof: "4.9 ★ 2k+", offer: "ROYAL100",
+    id: 1, title: "HYDERABADI BIRYANI", category: "BIRYANI", price: "₹350 / ₹450",
+    tag: "Signature", desc: "A royal feast of tender meat and long-grain basmati rice, infused with saffron and traditional spices.",
+    stats: { grain: "8.5mm", aroma: "Intense", spice: "High" }, origin: "Nizam's Tradition",
+    isNonVeg: true, servings: "1 / 2 Persons", spiceLevel: "Medium", pieces: "Premium Cut",
+    socialProof: "4.9 ★ 2k+",
   },
   {
-    id: 2, title: "AWADHI DUM PUKHT", category: "HERITAGE", price: "₹790",
-    tag: "Heritage", desc: "The quintessential Lucknowi experience — fragrant, delicate, sealed in a clay pot.",
-    stats: { grain: "7.8mm", aroma: "Floral", spice: "Mild" }, origin: "Royal Courts of Awadh",
-    isNonVeg: true, servings: "Serves 1-2", spiceLevel: "Mild", pieces: "4 Pcs",
-    socialProof: "4.8 ★ 1.5k+", offer: "HERITAGE20",
+    id: 2, title: "VEG DUM BIRYANI", category: "BIRYANI", price: "₹380 / ₹490",
+    tag: "Garden Fresh", desc: "Fragrant basmati rice layered with seasonal vegetables and slow-cooked in a sealed handi.",
+    stats: { grain: "8.2mm", aroma: "Floral", spice: "Balanced" }, origin: "North Indian Plains",
+    isNonVeg: false, servings: "1 / 2 Persons", spiceLevel: "Mild", pieces: "Assorted Veg",
+    socialProof: "4.8 ★ 1.2k+",
   },
   {
-    id: 3, title: "MALABAR PRAWN BIRYANI", category: "SEASONAL", price: "₹920",
-    tag: "Coastal Special", desc: "Short-grain Kaima rice infused with coconut milk and fresh Malabar prawns.",
-    stats: { grain: "4.5mm", aroma: "Zesty", spice: "Medium" }, origin: "Coastal Malabar",
-    isNonVeg: true, servings: "Serves 1", spiceLevel: "Spicy", pieces: "6-8 Prawns",
-    socialProof: "4.7 ★ 800+", offer: "COASTAL15",
+    id: 3, title: "SHAHI CHHAP BIRYANI", category: "BIRYANI", price: "₹380 / ₹490",
+    tag: "Royal Choice", desc: "Luxurious vegetarian delight featuring succulent soya chaap pieces marinated in rich spices.",
+    stats: { grain: "8.0mm", aroma: "Rich", spice: "Medium" }, origin: "Mughalai Fusion",
+    isNonVeg: false, servings: "1 / 2 Persons", spiceLevel: "Medium", pieces: "6-8 Pcs",
+    socialProof: "4.7 ★ 900+",
   },
   {
-    id: 4, title: "KOLKATA SPECIAL BIRYANI", category: "SIGNATURE", price: "₹720",
-    tag: "Classic", desc: "Famous for subtle spices and the iconic saffron-infused potato and egg.",
-    stats: { grain: "8.0mm", aroma: "Sweet-Spice", spice: "Mild" }, origin: "Park Street, Kolkata",
-    isNonVeg: true, servings: "Serves 1-2", spiceLevel: "Mild", pieces: "2 Pcs + Egg",
-    socialProof: "4.6 ★ 3k+", offer: "KOLKATA10",
+    id: 4, title: "DUM BIRYANI", category: "BIRYANI", price: "₹370 / ₹490",
+    tag: "Classic", desc: "The quintessential slow-cooked perfection, where every grain of rice is infused with heirloom spices.",
+    stats: { grain: "7.8mm", aroma: "Earthy", spice: "Balanced" }, origin: "Heritage Kitchen",
+    isNonVeg: true, servings: "1 / 2 Persons", spiceLevel: "Medium", pieces: "4 Pcs",
+    socialProof: "4.6 ★ 3.2k+",
   },
   {
-    id: 5, title: "SINDHI SPICE RESERVE", category: "HERITAGE", price: "₹680",
-    tag: "High Spice", desc: "A robust, tangy blend with dried plums and complex aromatic spices.",
-    stats: { grain: "7.5mm", aroma: "Sharp", spice: "High" }, origin: "Sindh Province",
-    isNonVeg: true, servings: "Serves 1", spiceLevel: "Very Spicy", pieces: "4 Pcs",
-    socialProof: "4.5 ★ 500+", offer: "SPICE25",
+    id: 5, title: "SPECIAL HOB BIRYANI", category: "BIRYANI", price: "₹390 / ₹550",
+    tag: "House Special", desc: "Our signature masterpiece, a complex blend of flavors crafted for the ultimate biryani experience.",
+    stats: { grain: "8.8mm", aroma: "Majestic", spice: "Perfect" }, origin: "House of Biryani",
+    isNonVeg: true, servings: "1 / 2 Persons", spiceLevel: "Spicy", pieces: "6 Pcs",
+    socialProof: "5.0 ★ 500+",
   },
   {
-    id: 6, title: "VEGETABLE TEHRI", category: "ACCOMPANIMENTS", price: "₹550",
-    tag: "Garden Fresh", desc: "A celebration of seasonal vegetables and heritage rice, rich in nutritional depth.",
-    stats: { grain: "7.2mm", aroma: "Earthy", spice: "Balanced" }, origin: "North Indian Plains",
-    isNonVeg: false, servings: "Serves 1-2", spiceLevel: "Medium", pieces: "Assorted Veg",
-    socialProof: "4.8 ★ 1.1k+", offer: "VEGGIE20",
+    id: 6, title: "VEG ROLL", category: "ROLLS", price: "₹150",
+    tag: "Quick Bite", desc: "Freshly sautéed vegetables wrapped in a soft, flaky paratha with tangy chutneys.",
+    stats: { size: "Regular", crust: "Flaky", filling: "Fresh" }, origin: "Street Style",
+    isNonVeg: false, servings: "Serves 1", spiceLevel: "Mild", pieces: "1 Roll",
+    socialProof: "4.5 ★ 1.8k+",
+  },
+  {
+    id: 7, title: "VEG CHHAP ROLL", category: "ROLLS", price: "₹200",
+    tag: "Tandoori", desc: "Succulent soya chaap tossed in secret spices and grilled to smoky perfection.",
+    stats: { size: "Large", crust: "Toasted", filling: "Smoky" }, origin: "Grill House",
+    isNonVeg: false, servings: "Serves 1", spiceLevel: "Medium", pieces: "1 Roll",
+    socialProof: "4.7 ★ 1.1k+",
+  },
+  {
+    id: 8, title: "PANEER KATHI ROLL", category: "ROLLS", price: "₹250",
+    tag: "Classic Kolkata", desc: "Tender paneer cubes with peppers and onions, drizzled with signature sauces.",
+    stats: { size: "X-Large", crust: "Butter", filling: "Creamy" }, origin: "Kolkata Streets",
+    isNonVeg: false, servings: "Serves 1", spiceLevel: "Medium", pieces: "1 Roll",
+    socialProof: "4.8 ★ 2.5k+",
+  },
+  {
+    id: 9, title: "MALAI CHHAP ROLL", category: "ROLLS", price: "₹300",
+    tag: "Creamy", desc: "Melt-in-the-mouth malai chaap pieces wrapped in a soft roll with a hint of cardamom.",
+    stats: { size: "Large", crust: "Soft", filling: "Silky" }, origin: "Royal Kitchens",
+    isNonVeg: false, servings: "Serves 1", spiceLevel: "Mild", pieces: "1 Roll",
+    socialProof: "4.9 ★ 800+",
+  },
+  {
+    id: 10, title: "MUSHROOM TIKKA ROLL", category: "ROLLS", price: "₹250",
+    tag: "Earthy", desc: "Marinated mushroom caps grilled in tandoor and rolled into a satisfying meal.",
+    stats: { size: "Regular", crust: "Crispy", filling: "Juicy" }, origin: "Clay Oven",
+    isNonVeg: false, servings: "Serves 1", spiceLevel: "Medium", pieces: "1 Roll",
+    socialProof: "4.6 ★ 600+",
   },
 ];
 
-const categories = ["ALL", "SIGNATURE", "HERITAGE", "SEASONAL", "ACCOMPANIMENTS"];
+const categories = ["ALL", "BIRYANI", "ROLLS"];
 
 /* ── Icons ── */
 const ListIcon = () => (
@@ -234,24 +262,41 @@ const ProductCard = ({ item, index }) => {
         <div style={{
           marginTop: 'auto', paddingTop: 20,
           borderTop: '1px solid rgba(255,255,255,0.07)',
-          display: 'flex', alignItems: 'center', justifyContent: 'space-between',
+          display: 'flex', flexDirection: 'column', gap: 14,
         }}>
-          <div>
-            <div style={{ fontSize: 8, color: 'rgba(212,175,55,0.55)', letterSpacing: '0.35em', textTransform: 'uppercase', fontWeight: 700, marginBottom: 4 }}>Reserve Price</div>
-            <div className="font-header" style={{ fontSize: 26, color: '#FFD700', lineHeight: 1, textShadow: '0 0 20px rgba(255,215,0,0.18)' }}>{item.price}</div>
+          <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+            <div style={{ display: 'flex', flexDirection: 'column', gap: 2 }}>
+              <span style={{ fontSize: 8, color: 'rgba(212,175,55,0.5)', letterSpacing: '0.2em', textTransform: 'uppercase', fontWeight: 600 }}>Investment</span>
+              <div className="font-header" style={{ fontSize: 20, color: '#FFD700', letterSpacing: '0.02em' }}>{item.price}</div>
+            </div>
+            <div style={{ textAlign: 'right' }}>
+              <span style={{ fontSize: 9, color: 'rgba(255,255,255,0.25)', fontWeight: 600, display: 'block' }}>Excl. Taxes</span>
+              <span style={{ fontSize: 8, color: 'rgba(212,175,55,0.4)', textTransform: 'uppercase', letterSpacing: '0.1em' }}>Gourmet Grade</span>
+            </div>
           </div>
 
           <button className="add-btn font-header" style={{
-            padding: '11px 26px', background: 'transparent',
-            border: '1px solid rgba(212,175,55,0.35)', color: '#D4AF37',
-            fontSize: 10, fontWeight: 700, letterSpacing: '0.22em', textTransform: 'uppercase',
+            width: '100%', padding: '12px 0', background: 'transparent',
+            border: '1px solid rgba(212,175,55,0.3)', color: '#D4AF37',
+            fontSize: 10, fontWeight: 700, letterSpacing: '0.2em', textTransform: 'uppercase',
             cursor: 'pointer', position: 'relative', overflow: 'hidden',
-            transition: 'border-color 0.4s, color 0.4s',
+            transition: 'all 0.4s cubic-bezier(0.4, 0, 0.2, 1)',
+            borderRadius: '2px',
           }}
-            onMouseEnter={e => { e.currentTarget.style.color = '#000'; e.currentTarget.style.borderColor = '#D4AF37'; }}
-            onMouseLeave={e => { e.currentTarget.style.color = '#D4AF37'; e.currentTarget.style.borderColor = 'rgba(212,175,55,0.35)'; }}
+            onMouseEnter={e => {
+              e.currentTarget.style.color = '#000';
+              e.currentTarget.style.borderColor = '#D4AF37';
+              e.currentTarget.style.transform = 'translateY(-2px)';
+              e.currentTarget.style.boxShadow = '0 6px 20px rgba(212,175,55,0.15)';
+            }}
+            onMouseLeave={e => {
+              e.currentTarget.style.color = '#D4AF37';
+              e.currentTarget.style.borderColor = 'rgba(212,175,55,0.3)';
+              e.currentTarget.style.transform = 'translateY(0)';
+              e.currentTarget.style.boxShadow = 'none';
+            }}
           >
-            <span style={{ position: 'relative', zIndex: 2 }}>Add Item</span>
+            <span style={{ position: 'relative', zIndex: 2 }}>Order now</span>
             <span className="btn-fill" style={{
               position: 'absolute', inset: 0, background: '#D4AF37',
               transform: 'translateY(100%)', transition: 'transform 0.4s ease',
@@ -351,7 +396,8 @@ const MobileHorizontalCard = ({ item }) => {
       </div>
 
       {/* Right Content (Image + Add Button) */}
-      <div style={{ width: '130px', position: 'relative', flexShrink: 0 }}>
+      <div style={{ width: '130px', position: 'relative', flexShrink: 0, alignSelf: 'stretch' }}>
+        {/* Image Box */}
         <div style={{
           width: '130px',
           height: '130px',
@@ -360,7 +406,7 @@ const MobileHorizontalCard = ({ item }) => {
           background: 'linear-gradient(145deg, #1a1a1a, #0a0a0a)',
           position: 'relative',
           border: '1px solid rgba(255,255,255,0.08)',
-          boxShadow: '0 8px 20px rgba(0,0,0,0.4)'
+          boxShadow: '0 8px 20px rgba(0,0,0,0.4)',
         }}>
           {/* Top Badge/Ribbon */}
           <div style={{
@@ -393,39 +439,42 @@ const MobileHorizontalCard = ({ item }) => {
           </div>
         </div>
 
-        {/* Floating Add Button */}
+        {/* Floating Add Button - Now outside overflow:hidden to avoid clipping */}
         <button
           className="font-header"
           style={{
             position: 'absolute',
-            bottom: '-12px',
+            top: '130px', // Exactly at the bottom edge of the image box
             left: '50%',
-            transform: 'translateX(-50%)',
-            background: '#FFD700',
-            color: '#000',
-            border: '2px solid #000',
+            transform: 'translate(-50%, -50%)', // Half on, half off
+            background: '#fff',
+            color: '#D4AF37',
+            border: '1px solid #D4AF37',
             borderRadius: '8px',
-            padding: '8px 24px',
+            padding: '8px 28px',
             fontSize: '13px',
             fontWeight: '900',
-            boxShadow: '0 6px 16px rgba(0,0,0,0.5)',
-            zIndex: 20,
+            boxShadow: '0 6px 16px rgba(0,0,0,0.4), 0 0 10px rgba(212,175,55,0.1)',
+            zIndex: 30,
             cursor: 'pointer',
             whiteSpace: 'nowrap',
-            transition: 'all 0.2s'
+            transition: 'all 0.2s cubic-bezier(0.175, 0.885, 0.32, 1.275)',
+            letterSpacing: '0.05em'
           }}
-          onPointerDown={e => e.currentTarget.style.transform = 'translateX(-50%) scale(0.95)'}
-          onPointerUp={e => e.currentTarget.style.transform = 'translateX(-50%) scale(1)'}
+          onPointerDown={e => e.currentTarget.style.transform = 'translate(-50%, -50%) scale(0.92)'}
+          onPointerUp={e => e.currentTarget.style.transform = 'translate(-50%, -50%) scale(1)'}
         >
-          ADD +
+          ADD
+          <span style={{ marginLeft: '4px', fontSize: '15px' }}>+</span>
         </button>
 
         <div style={{
           textAlign: 'center',
           fontSize: '9px',
           color: 'rgba(255,255,255,0.4)',
-          marginTop: '16px',
-          fontWeight: '600'
+          marginTop: '22px', // More margin for the button overlap
+          fontWeight: '600',
+          letterSpacing: '0.05em'
         }}>
           Customizable
         </div>
@@ -509,12 +558,19 @@ const CompactCard = ({ item }) => {
           <span className="font-header" style={{ fontSize: 14, color: '#FFD700', fontWeight: 700 }}>{item.price}</span>
           <button style={{
             width: 32, height: 32, display: 'flex', alignItems: 'center', justifyContent: 'center',
-            background: 'rgba(212,175,55,0.08)', border: '1px solid rgba(212,175,55,0.35)',
-            borderRadius: '50%', cursor: 'pointer', color: '#D4AF37', fontSize: 20, fontWeight: 300,
-            transition: 'background 0.25s',
+            background: '#fff', border: '1px solid #D4AF37',
+            borderRadius: '8px', cursor: 'pointer', color: '#D4AF37', fontSize: 18, fontWeight: 900,
+            transition: 'all 0.2s',
+            boxShadow: '0 4px 10px rgba(0,0,0,0.3)',
           }}
-            onTouchStart={e => e.currentTarget.style.background = '#D4AF37'}
-            onTouchEnd={e => e.currentTarget.style.background = 'rgba(212,175,55,0.08)'}
+            onTouchStart={e => {
+              e.currentTarget.style.transform = 'scale(0.9)';
+              e.currentTarget.style.background = '#fcfcfc';
+            }}
+            onTouchEnd={e => {
+              e.currentTarget.style.transform = 'scale(1)';
+              e.currentTarget.style.background = '#fff';
+            }}
           >+</button>
         </div>
       </div>
@@ -625,6 +681,21 @@ const MenuOverlay = ({ onBack }) => {
               COLLECTION
             </em>
           </h1>
+          <div className="menu-header-item" style={{ marginBottom: 40 }}>
+            <span className="font-header" style={{
+              color: '#D4AF37',
+              fontSize: 'clamp(12px, 1.5vw, 16px)',
+              fontWeight: 600,
+              letterSpacing: '0.05em',
+              padding: '12px 24px',
+              background: 'rgba(212,175,55,0.08)',
+              border: '1px solid rgba(212,175,55,0.2)',
+              display: 'inline-block',
+              textTransform: 'uppercase'
+            }}>
+              [ Note :- 300 grams Serve for 1 and 500 grams serve for 2 ]
+            </span>
+          </div>
           <p className="menu-header-item font-body" style={{
             maxWidth: 560, margin: '0 auto', color: 'rgba(140,140,140,0.85)',
             fontSize: 14, lineHeight: 1.8, letterSpacing: '0.02em',

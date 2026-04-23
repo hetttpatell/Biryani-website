@@ -6,18 +6,18 @@ gsap.registerPlugin(ScrollTrigger);
 
 const dishes = [
   {
-    name: 'Hyderabadi Dum Biryani',
-    spice: '4.2/5',
+    name: 'Hyderabadi Biryani',
+    spice: '4.5/5',
     aging: '18h',
   },
   {
-    name: 'Cheese Kabab Roll',
-    spice: '3.4/5',
+    name: 'Special HOB Biryani',
+    spice: '4.8/5',
     aging: '24h',
   },
   {
-    name: 'Coastal Prawn Biryani',
-    spice: '2.8/5',
+    name: 'Paneer Kathi Roll',
+    spice: '3.2/5',
     aging: '12h',
   },
 ];
