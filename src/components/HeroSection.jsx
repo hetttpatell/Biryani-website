@@ -23,20 +23,23 @@ const ParticleCanvas = ({ isLoaded }) => {
     const canvas = canvasRef.current;
     if (!canvas) return;
     const ctx = canvas.getContext('2d');
-    const dpr = Math.min(window.devicePixelRatio || 1, 2);
+    const isMobile = window.innerWidth < 768;
+    const dpr = isMobile ? 1 : Math.min(window.devicePixelRatio || 1, 2);
 
     const resize = () => {
-      canvas.width = window.innerWidth * dpr;
-      canvas.height = window.innerHeight * dpr;
-      canvas.style.width = `${window.innerWidth}px`;
-      canvas.style.height = `${window.innerHeight}px`;
+      const w = window.innerWidth;
+      const h = window.innerHeight;
+      canvas.width = w * dpr;
+      canvas.height = h * dpr;
+      canvas.style.width = `${w}px`;
+      canvas.style.height = `${h}px`;
       ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
     };
     resize();
     window.addEventListener('resize', resize);
 
-    // Create particles
-    const COUNT = 60;
+    // Create particles - fewer on mobile
+    const COUNT = isMobile ? 30 : 60;
     particlesRef.current = Array.from({ length: COUNT }, () => ({
       x: Math.random() * window.innerWidth,
       y: Math.random() * window.innerHeight,
@@ -146,28 +149,26 @@ const HeroSection = () => {
   const [isAutoScrolling, setIsAutoScrolling] = useState(false);
   const scrollTriggerRef = useRef(null);
 
-  // ── Draw a smoke frame on canvas with "cover" scaling ──
+  // Cache for drawing parameters to avoid per-frame math
+  const drawParamsRef = useRef({ sx: 0, sy: 0, sw: 0, sh: 0 });
+
+  // ── Draw a smoke frame on canvas with cached "cover" scaling ──
   const drawFrame = useCallback((frameIndex) => {
     const canvas = smokeCanvasRef.current;
     if (!canvas) return;
-    const ctx = canvas.getContext('2d');
+    const ctx = canvas.getContext('2d', { alpha: false }); // Optimization: no alpha for smoke background
     const img = framesRef.current[frameIndex];
     if (!img || !img.complete || !img.naturalWidth) return;
 
+    const { sx, sy, sw, sh } = drawParamsRef.current;
     const cw = canvas.width;
     const ch = canvas.height;
-    const iw = img.naturalWidth;
-    const ih = img.naturalHeight;
 
-    const scale = Math.max(cw / iw, ch / ih);
-    const sw = cw / scale;
-    const sh = ch / scale;
-    const sx = (iw - sw) / 2;
-    const sy = (ih - sh) / 2;
+    // Use lower smoothing quality on mobile for better performance
+    const isMobile = window.innerWidth < 768;
+    ctx.imageSmoothingEnabled = !isMobile; 
+    if (!isMobile) ctx.imageSmoothingQuality = 'medium';
 
-    ctx.imageSmoothingEnabled = true;
-    ctx.imageSmoothingQuality = 'high';
-    ctx.clearRect(0, 0, cw, ch);
     ctx.drawImage(img, sx, sy, sw, sh, 0, 0, cw, ch);
   }, []);
 
@@ -175,11 +176,34 @@ const HeroSection = () => {
   const resizeCanvas = useCallback(() => {
     const canvas = smokeCanvasRef.current;
     if (!canvas) return;
-    const dpr = Math.min(window.devicePixelRatio || 1, 2);
-    canvas.width = window.innerWidth * dpr;
-    canvas.height = window.innerHeight * dpr;
-    canvas.style.width = `${window.innerWidth}px`;
-    canvas.style.height = `${window.innerHeight}px`;
+    
+    const isMobile = window.innerWidth < 768;
+    // On mobile, render at lower resolution (0.75x) for buttery smoothness
+    // Smoke is naturally soft, so resolution loss is unnoticeable but performance gain is huge
+    const dpr = isMobile ? Math.min(window.devicePixelRatio || 1, 1.2) : Math.min(window.devicePixelRatio || 1, 2);
+    
+    const w = window.innerWidth;
+    const h = window.innerHeight;
+    
+    canvas.width = w * dpr;
+    canvas.height = h * dpr;
+    canvas.style.width = `${w}px`;
+    canvas.style.height = `${h}px`;
+
+    // Recalculate and cache "cover" scale parameters
+    const img = framesRef.current[currentFrameRef.current] || { naturalWidth: 1920, naturalHeight: 1080 };
+    const iw = img.naturalWidth;
+    const ih = img.naturalHeight;
+    const cw = canvas.width;
+    const ch = canvas.height;
+
+    const scale = Math.max(cw / iw, ch / ih);
+    const sw = cw / scale;
+    const sh = ch / scale;
+    const sx = (iw - sw) / 2;
+    const sy = (ih - sh) / 2;
+
+    drawParamsRef.current = { sx, sy, sw, sh };
     drawFrame(currentFrameRef.current);
   }, [drawFrame]);
 
@@ -273,19 +297,19 @@ const HeroSection = () => {
         gsap.set([story1Ref.current, story2Ref.current, story3Ref.current], {
           xPercent: isMobile ? -50 : 0,
           yPercent: isMobile ? 0 : -50,
+          willChange: 'opacity, transform',
         });
-        gsap.set(story1Ref.current, { opacity: 0, x: isMobile ? 0 : -60, y: 60, filter: 'blur(20px)' });
-        gsap.set(story2Ref.current, { opacity: 0, x: isMobile ? 0 : 60, y: 60, filter: 'blur(20px)' });
-        gsap.set(story3Ref.current, { opacity: 0, y: 60, filter: 'blur(20px)', xPercent: -50 });
-
-
+        
+        gsap.set(story1Ref.current, { opacity: 0, x: isMobile ? 0 : -60, y: 60, filter: isMobile ? 'none' : 'blur(20px)' });
+        gsap.set(story2Ref.current, { opacity: 0, x: isMobile ? 0 : 60, y: 60, filter: isMobile ? 'none' : 'blur(20px)' });
+        gsap.set(story3Ref.current, { opacity: 0, y: 60, filter: isMobile ? 'none' : 'blur(20px)', xPercent: -50 });
 
         const tl = gsap.timeline({
           scrollTrigger: {
             trigger: containerRef.current,
             start: 'top top',
             end: '+=5000',
-            scrub: isMobile ? 1.2 : 0.6, // Increased for "butter smooth" momentum
+            scrub: isMobile ? 0.8 : 0.6, // Slightly faster scrub for mobile to feel more responsive
             pin: true,
             anticipatePin: 1,
             onRefresh: (self) => { scrollTriggerRef.current = self; },
@@ -294,8 +318,8 @@ const HeroSection = () => {
 
         tl.to(frameObj, {
           value: TOTAL_FRAMES - 1,
-          duration: 17.7, // Matches the total timeline duration
-          ease: 'power1.inOut', // Smoother transitions between frames during scroll speed changes
+          duration: 17.7, 
+          ease: 'none', // Linear for background frames is often smoother when scrubbing
           onUpdate: () => {
             const frame = Math.round(frameObj.value);
             if (frame !== currentFrameRef.current) {
@@ -309,8 +333,8 @@ const HeroSection = () => {
           // ── Stage 1 — Image scales up majestically ──
           .to(scrollHintRef.current, { opacity: 0, duration: 0.8 }, 0)
           .to(imgWrapRef.current, {
-            scale: isMobile ? 1.2 : 1.5,
-            yPercent: isMobile ? -10 : 0,
+            scale: isMobile ? 1.1 : 1.5, // Reduced scale on mobile to avoid massive pixel shifting
+            yPercent: isMobile ? -5 : 0,
             duration: 2.5, ease: 'power2.inOut',
             force3D: true,
           }, 0)
@@ -318,33 +342,33 @@ const HeroSection = () => {
           // ── Stage 2 — Image drifts, story 1 (The Grain) fades in ──
           .to(imgWrapRef.current, {
             xPercent: isMobile ? 0 : 32,
-            yPercent: isMobile ? -12 : 0,
+            yPercent: isMobile ? -8 : 0,
             duration: 3, ease: 'power2.inOut',
             force3D: true,
-          }, 2.5) // Moved to 2.5 to avoid overlap with Stage 1
+          }, 2.5) 
           .to(story1Ref.current, { opacity: 1, x: 0, y: 0, filter: 'blur(0px)', duration: 2.2, ease: 'power2.out' }, 3.5)
-          .to(story1Ref.current, { opacity: 0, x: isMobile ? 0 : -40, y: -30, filter: 'blur(20px)', duration: 1.8, ease: 'power2.in' }, 6.0)
+          .to(story1Ref.current, { opacity: 0, x: isMobile ? 0 : -40, y: -30, filter: isMobile ? 'none' : 'blur(20px)', duration: 1.8, ease: 'power2.in' }, 6.0)
 
           // ── Stage 3 — Image drifts opposite, story 2 (The Dum) fades in ──
           .to(imgWrapRef.current, {
             xPercent: isMobile ? 0 : -32,
-            yPercent: isMobile ? -24 : 0,
+            yPercent: isMobile ? -16 : 0,
             duration: 3, ease: 'power2.inOut',
             force3D: true,
           }, 7.0)
           .to(story2Ref.current, { opacity: 1, x: 0, y: 0, filter: 'blur(0px)', duration: 2.2, ease: 'power2.out' }, 8.0)
-          .to(story2Ref.current, { opacity: 0, x: isMobile ? 0 : 40, y: -30, filter: 'blur(20px)', duration: 1.8, ease: 'power2.in' }, 11.0)
+          .to(story2Ref.current, { opacity: 0, x: isMobile ? 0 : 40, y: -30, filter: isMobile ? 'none' : 'blur(20px)', duration: 1.8, ease: 'power2.in' }, 11.0)
 
           // ── Stage 4 — Center, story 3 (The Promise) ──
           .to(imgWrapRef.current, {
             xPercent: 0,
-            yPercent: isMobile ? -18 : -8,
-            scale: isMobile ? 1.2 : 1.6,
+            yPercent: isMobile ? -12 : -8,
+            scale: isMobile ? 1.1 : 1.6,
             duration: 2.5, ease: 'power2.inOut',
             force3D: true,
           }, 12)
           .to(story3Ref.current, { opacity: 1, y: 0, filter: 'blur(0px)', duration: 2.2, ease: 'power2.out' }, 13)
-          .to(story3Ref.current, { opacity: 0, y: -30, filter: 'blur(20px)', duration: 1.8, ease: 'power2.in' }, 15.5)
+          .to(story3Ref.current, { opacity: 0, y: -30, filter: isMobile ? 'none' : 'blur(20px)', duration: 1.8, ease: 'power2.in' }, 15.5)
 
           // ── Stage 5 — Return to origin ──
           .to(imgWrapRef.current, { xPercent: 0, yPercent: 0, scale: 1, duration: 2.5, ease: 'power3.inOut', force3D: true }, 15)
@@ -535,7 +559,10 @@ const HeroSection = () => {
           style={{
             width: 'min(90vw, 720px)',
             height: 'min(90vw, 720px)',
-            filter: 'drop-shadow(0 30px 60px rgba(0,0,0,0.8)) drop-shadow(0 0 100px rgba(139,90,20,0.15))',
+            // Simpler shadow on mobile to prevent lag
+            filter: window.innerWidth < 768 
+              ? 'drop-shadow(0 20px 30px rgba(0,0,0,0.5))' 
+              : 'drop-shadow(0 30px 60px rgba(0,0,0,0.8)) drop-shadow(0 0 100px rgba(139,90,20,0.15))',
             transform: 'translateZ(0)',
             willChange: 'transform',
           }}
@@ -545,6 +572,7 @@ const HeroSection = () => {
             src="/biryani.png"
             alt="Royal Biryani — House of Biryani and Rolls"
             className="w-full h-full object-contain will-change-transform"
+            style={{ transform: 'translateZ(0)' }}
           />
         </div>
 

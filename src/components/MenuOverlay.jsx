@@ -296,7 +296,7 @@ const ProductCard = ({ item, index }) => {
               e.currentTarget.style.boxShadow = 'none';
             }}
           >
-            <span style={{ position: 'relative', zIndex: 2 }}>Order now</span>
+            <span style={{ position: 'relative', zIndex: 2 }}>GET now</span>
             <span className="btn-fill" style={{
               position: 'absolute', inset: 0, background: '#D4AF37',
               transform: 'translateY(100%)', transition: 'transform 0.4s ease',
@@ -464,7 +464,7 @@ const MobileHorizontalCard = ({ item }) => {
           onPointerDown={e => e.currentTarget.style.transform = 'translate(-50%, -50%) scale(0.92)'}
           onPointerUp={e => e.currentTarget.style.transform = 'translate(-50%, -50%) scale(1)'}
         >
-          ADD
+          GET
           <span style={{ marginLeft: '4px', fontSize: '15px' }}>+</span>
         </button>
 
