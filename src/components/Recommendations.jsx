@@ -9,16 +9,19 @@ const dishes = [
     name: 'Hyderabadi Biryani',
     spice: '4.5/5',
     aging: '18h',
+    price: '₹450',
   },
   {
     name: 'Special HOB Biryani',
     spice: '4.8/5',
     aging: '24h',
+    price: '₹550',
   },
   {
     name: 'Paneer Kathi Roll',
     spice: '3.2/5',
     aging: '12h',
+    price: '₹250',
   },
 ];
 
@@ -253,7 +256,7 @@ const Recommendations = () => {
                 fontWeight: 500,
                 color: 'rgba(255,255,255,0.88)',
                 fontFamily: '"Outfit", sans-serif',
-                margin: '0 0 10px',
+                margin: '0 0 6px',
                 textAlign: 'center',
                 letterSpacing: '0.03em',
                 transition: 'color 0.3s ease',
@@ -263,15 +266,52 @@ const Recommendations = () => {
 
               {/* ── Specs line ── */}
               <p style={{
-                fontSize: 'clamp(11px, 1.1vw, 14px)',
+                fontSize: 'clamp(11px, 1.1vw, 13px)',
                 color: 'rgba(255,255,255,0.3)',
                 fontFamily: '"Outfit", sans-serif',
-                margin: 0,
+                margin: '0 0 16px',
                 textAlign: 'center',
                 letterSpacing: '0.05em',
               }}>
-                Spice: {dish.spice}, Aging: {dish.aging}
+                Spice: {dish.spice} • Aging: {dish.aging}
               </p>
+
+              {/* ── Price & CTA ── */}
+              <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '12px' }}>
+                <span style={{ 
+                  fontSize: '18px', 
+                  color: '#D4AF37', 
+                  fontWeight: 600,
+                  fontFamily: '"Outfit", sans-serif'
+                }}>
+                  {dish.price}
+                </span>
+                <button
+                  style={{
+                    padding: '8px 24px',
+                    background: 'transparent',
+                    border: '1px solid rgba(212,175,55,0.4)',
+                    color: '#D4AF37',
+                    fontSize: '10px',
+                    fontWeight: 700,
+                    letterSpacing: '0.2em',
+                    textTransform: 'uppercase',
+                    cursor: 'pointer',
+                    transition: 'all 0.3s ease',
+                    borderRadius: '2px',
+                  }}
+                  onMouseEnter={e => {
+                    e.currentTarget.style.background = '#D4AF37';
+                    e.currentTarget.style.color = '#000';
+                  }}
+                  onMouseLeave={e => {
+                    e.currentTarget.style.background = 'transparent';
+                    e.currentTarget.style.color = '#D4AF37';
+                  }}
+                >
+                  Get Now
+                </button>
+              </div>
             </div>
           ))}
         </div>
