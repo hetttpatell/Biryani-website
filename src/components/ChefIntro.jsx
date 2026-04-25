@@ -96,10 +96,37 @@ const ChefIntro = () => {
         scrollTrigger: { trigger: signatureRef.current, start: 'top 88%' },
       });
 
-      // ── Stats ──
+      // ── Stats Reveal & Counters ──
       gsap.from(statsRef.current, {
         y: 30, opacity: 0, stagger: 0.15, duration: 0.9, ease: 'power3.out',
-        scrollTrigger: { trigger: statsRef.current[0], start: 'top 88%' },
+        scrollTrigger: { 
+          trigger: statsRef.current[0], 
+          start: 'top 88%',
+          onEnter: () => {
+            // Trigger counter animations
+            statsRef.current.forEach((el, i) => {
+              const valEl = el.querySelector('.stat-value');
+              if (!valEl) return;
+              
+              const target = stats[i].value;
+              if (target === '∞') return; // Skip infinity
+              
+              const numericValue = parseInt(target);
+              if (isNaN(numericValue)) return;
+
+              const obj = { val: 0 };
+              gsap.to(obj, {
+                val: numericValue,
+                duration: 2,
+                ease: 'power2.out',
+                delay: i * 0.15,
+                onUpdate: () => {
+                  valEl.innerText = Math.floor(obj.val) + (target.includes('+') ? '+' : '');
+                }
+              });
+            });
+          }
+        },
       });
 
       // ── Subtle image parallax on scroll ──
@@ -119,7 +146,7 @@ const ChefIntro = () => {
   }, []);
 
   const stats = [
-    { value: '20+', label: 'Years of Mastery' },
+    { value: '12+', label: 'Years of Mastery' },
     { value: '400', label: 'Year Old Recipe Heritage' },
     { value: '∞', label: 'The Pursuit' },
   ];
@@ -232,7 +259,7 @@ const ChefIntro = () => {
                 }}>
                   {/* testing */}
                   <img
-                    src="/Chef.jpg"
+                    src="/chef.jpeg"
                     alt="Chef — Executive Curator & Visionary"
                     style={{
                       width: '100%', height: '100%', objectFit: 'cover',
@@ -294,14 +321,14 @@ const ChefIntro = () => {
                   color: 'rgba(212,175,55,0.5)', fontFamily: '"Outfit", sans-serif', fontWeight: 500,
                   marginBottom: '4px',
                 }}>
-                  Executive Curator
+                  Chief Chef
                 </div>
                 <div style={{
                   fontSize: '16px', color: 'rgba(255,255,255,0.9)',
                   fontFamily: '"Outfit", sans-serif', fontWeight: 300,
                   letterSpacing: '0.05em',
                 }}>
-                  &amp; Visionary
+                  & Head
                 </div>
               </div>
             </div>
@@ -310,39 +337,71 @@ const ChefIntro = () => {
             <div style={{
               display: 'flex', gap: '0',
               marginTop: '64px',
-              maxWidth: '440px',
-              margin: '64px auto 0',
+              maxWidth: '500px',
+              margin: '72px auto 0',
+              position: 'relative',
+              padding: '0 10px',
             }}>
+              {/* Background accent line for the stats block */}
+              <div style={{
+                position: 'absolute', top: '0', left: '10%', right: '10%', height: '1px',
+                background: 'linear-gradient(90deg, transparent, rgba(212,175,55,0.15) 50%, transparent)',
+              }} />
+
               {stats.map((stat, i) => (
                 <div
                   key={i}
                   ref={el => statsRef.current[i] = el}
                   style={{
                     flex: 1,
-                    padding: '16px 0',
+                    padding: '24px 0',
                     textAlign: 'center',
                     borderLeft: i > 0 ? '1px solid rgba(212,175,55,0.1)' : 'none',
+                    display: 'flex',
+                    flexDirection: 'column',
+                    alignItems: 'center',
+                    gap: '8px',
                   }}
                 >
+                  {/* Small decorative diamond above the number */}
+                  <svg width="6" height="6" viewBox="0 0 6 6" fill="none" style={{ marginBottom: '4px', opacity: 0.6 }}>
+                    <path d="M3 0L6 3L3 6L0 3L3 0Z" fill="#D4AF37" />
+                  </svg>
+
                   <div style={{
-                    fontSize: 'clamp(26px, 3.5vw, 36px)',
+                    fontSize: i === 2 ? 'clamp(36px, 4.5vw, 52px)' : 'clamp(32px, 4vw, 44px)',
                     color: '#D4AF37',
-                    fontFamily: '"Outfit", sans-serif',
-                    fontWeight: 300, lineHeight: 1.1,
+                    fontFamily: '"Playfair Display", serif',
+                    fontWeight: 400, lineHeight: 1,
                     letterSpacing: '-0.02em',
-                    marginBottom: '4px',
+                    textShadow: '0 0 20px rgba(212,175,55,0.15)',
+                    display: 'flex',
+                    alignItems: 'baseline',
+                    gap: '2px',
                   }}>
-                    {stat.value}
+                    <span className="stat-value">{stat.value}</span>
                   </div>
                   <div style={{
-                    fontSize: '9px', letterSpacing: '0.2em', textTransform: 'uppercase',
+                    fontSize: '9px', 
+                    letterSpacing: '0.25em', 
+                    textTransform: 'uppercase',
                     color: 'rgba(255,255,255,0.4)',
-                    fontFamily: '"Outfit", sans-serif', fontWeight: 500,
+                    fontFamily: '"Outfit", sans-serif', 
+                    fontWeight: 600,
+                    maxWidth: '110px',
+                    margin: '0 auto',
+                    lineHeight: 1.5,
                   }}>
                     {stat.label}
                   </div>
                 </div>
               ))}
+
+              {/* Bottom accent line */}
+              <div style={{
+                position: 'absolute', bottom: '0', left: '10%', right: '10%', height: '1px',
+                background: 'linear-gradient(90deg, transparent, rgba(212,175,55,0.15) 50%, transparent)',
+              }} />
             </div>
           </div>
 
@@ -399,9 +458,13 @@ const ChefIntro = () => {
                 margin: 0,
                 paddingLeft: '4px',
               }}>
-                Luxury is not just the ingredients; it is the kinetic energy of the craft.
-                We treat every order as a commission — a piece of edible art that honours
-                the archives of our royal culinary history.
+                With over 12 years of international culinary experience, the founder of House of
+                Biryani & Rolls brings passion and world-class taste to every plate. He has worked
+                with renowned names like North Sydney Hotel (Australia), TGF, and Taj Group during the
+                Delhi Commonwealth Games.
+                His vision is to redefine dining with premium-quality biryani and rolls made using rich
+                ingredients and expert techniques. Inspired by global standards, he is committed to bringing
+                unforgettable taste to New Delhi.
               </p>
               <div style={{
                 fontSize: '80px', color: 'rgba(212,175,55,0.08)',
@@ -423,7 +486,7 @@ const ChefIntro = () => {
                 textTransform: 'uppercase',
                 marginBottom: '8px',
               }}>
-                Julian Vane
+                Chef Jitu
               </div>
               <div style={{
                 fontSize: '10px',
@@ -432,7 +495,7 @@ const ChefIntro = () => {
                 color: 'rgba(255,255,255,0.4)',
                 fontFamily: '"Outfit", sans-serif', fontWeight: 400,
               }}>
-                Executive Curator &amp; Visionary
+                Executive Curator &amp;
               </div>
             </div>
 

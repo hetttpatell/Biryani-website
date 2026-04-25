@@ -9,7 +9,7 @@ gsap.registerPlugin(ScrollTrigger, ScrollToPlugin);
 const TOTAL_FRAMES = 240;
 const framePaths = Array.from({ length: TOTAL_FRAMES }, (_, i) => {
   const idx = String(i + 1).padStart(3, '0');
-  return `/Smoke-webp/frame-${idx}.webp`;
+  return `/Smoke-webp/ezgif-frame-${idx}.jpg`;
 });
 
 // ── Golden Particle System ──
@@ -165,6 +165,8 @@ const HeroSection = () => {
     const sx = (iw - sw) / 2;
     const sy = (ih - sh) / 2;
 
+    ctx.imageSmoothingEnabled = true;
+    ctx.imageSmoothingQuality = 'high';
     ctx.clearRect(0, 0, cw, ch);
     ctx.drawImage(img, sx, sy, sw, sh, 0, 0, cw, ch);
   }, []);
@@ -236,17 +238,27 @@ const HeroSection = () => {
       gsap.set(imgRef.current, { scale: 0.5, opacity: 0, filter: 'blur(15px)', force3D: true });
       gsap.set(scrollHintRef.current, { opacity: 0 });
 
+      // Proxy for smoke frame index
+      const frameObj = { value: 0 };
+
       // ── Grand Entrance Timeline ──
       const entTl = gsap.timeline({ defaults: { ease: 'power4.out' }, delay: 0.3 });
 
       entTl
+        // Smoke starts drifting subtly during entrance
+        .to(frameObj, {
+          value: 40,
+          duration: 4.0,
+          ease: 'power2.out',
+          onUpdate: () => drawFrame(Math.round(frameObj.value))
+        }, 0)
         // Image blooms in
         .to(imgRef.current, {
           scale: 1, opacity: 1, filter: 'blur(0px)',
           duration: 2.0, ease: 'power3.out',
-        })
+        }, 0.5)
         // Scroll hint
-        .to(scrollHintRef.current, { opacity: 1, duration: 1.2 }, '-=0.6');
+        .to(scrollHintRef.current, { opacity: 1, duration: 1.2 }, '-=0.4');
 
       // ── Scroll-linked Animation ──
       const mm = gsap.matchMedia(containerRef);
@@ -266,15 +278,14 @@ const HeroSection = () => {
         gsap.set(story2Ref.current, { opacity: 0, x: isMobile ? 0 : 60, y: 60, filter: 'blur(20px)' });
         gsap.set(story3Ref.current, { opacity: 0, y: 60, filter: 'blur(20px)', xPercent: -50 });
 
-        // Proxy for smoke frame index
-        const frameObj = { value: 0 };
+
 
         const tl = gsap.timeline({
           scrollTrigger: {
             trigger: containerRef.current,
             start: 'top top',
             end: '+=5000',
-            scrub: isMobile ? 0.8 : 0.4,
+            scrub: isMobile ? 1.2 : 0.6, // Increased for "butter smooth" momentum
             pin: true,
             anticipatePin: 1,
             onRefresh: (self) => { scrollTriggerRef.current = self; },
@@ -283,8 +294,8 @@ const HeroSection = () => {
 
         tl.to(frameObj, {
           value: TOTAL_FRAMES - 1,
-          duration: 16.7,
-          ease: 'none',
+          duration: 17.7, // Matches the total timeline duration
+          ease: 'power1.inOut', // Smoother transitions between frames during scroll speed changes
           onUpdate: () => {
             const frame = Math.round(frameObj.value);
             if (frame !== currentFrameRef.current) {
