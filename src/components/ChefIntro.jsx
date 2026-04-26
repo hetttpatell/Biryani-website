@@ -99,18 +99,18 @@ const ChefIntro = () => {
       // ── Stats Reveal & Counters ──
       gsap.from(statsRef.current, {
         y: 30, opacity: 0, stagger: 0.15, duration: 0.9, ease: 'power3.out',
-        scrollTrigger: { 
-          trigger: statsRef.current[0], 
+        scrollTrigger: {
+          trigger: statsRef.current[0],
           start: 'top 88%',
           onEnter: () => {
             // Trigger counter animations
             statsRef.current.forEach((el, i) => {
               const valEl = el.querySelector('.stat-value');
               if (!valEl) return;
-              
+
               const target = stats[i].value;
               if (target === '∞') return; // Skip infinity
-              
+
               const numericValue = parseInt(target);
               if (isNaN(numericValue)) return;
 
@@ -382,11 +382,11 @@ const ChefIntro = () => {
                     <span className="stat-value">{stat.value}</span>
                   </div>
                   <div style={{
-                    fontSize: '9px', 
-                    letterSpacing: '0.25em', 
+                    fontSize: '9px',
+                    letterSpacing: '0.25em',
                     textTransform: 'uppercase',
                     color: 'rgba(255,255,255,0.4)',
-                    fontFamily: '"Outfit", sans-serif', 
+                    fontFamily: '"Outfit", sans-serif',
                     fontWeight: 600,
                     maxWidth: '110px',
                     margin: '0 auto',
@@ -486,7 +486,7 @@ const ChefIntro = () => {
                 textTransform: 'uppercase',
                 marginBottom: '8px',
               }}>
-                Chef Jitu
+                Sameer Dhawan
               </div>
               <div style={{
                 fontSize: '10px',
@@ -495,7 +495,7 @@ const ChefIntro = () => {
                 color: 'rgba(255,255,255,0.4)',
                 fontFamily: '"Outfit", sans-serif', fontWeight: 400,
               }}>
-                Executive Curator &amp;
+                Executive Cheif
               </div>
             </div>
 

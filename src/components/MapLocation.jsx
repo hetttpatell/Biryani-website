@@ -4,13 +4,12 @@ import { ScrollTrigger } from 'gsap/ScrollTrigger';
 
 gsap.registerPlugin(ScrollTrigger);
 
-// Temporary Delhi coordinates — update when location is confirmed
 const LOCATION = {
   name: 'House of Biryani & Rolls',
-  address: 'Connaught Place, New Delhi, Delhi 110001',
-  lat: 28.6315,
-  lng: 77.2167,
-  googleMapsUrl: 'https://www.google.com/maps/place/Connaught+Place,+New+Delhi,+Delhi+110001',
+  address: 'An 32c. Shalimar Bagh  New Delhi 110088',
+  lat: 28.6881,
+  lng: 77.1554,
+  googleMapsUrl: 'https://www.google.com/maps/search/BN+56+East%2C+Shalimar+Bagh+East%2C+Delhi+%E2%80%93+110088%2C+Delhi%2C+India/?hl=en',
 };
 
 const MapLocation = () => {
