@@ -52,7 +52,7 @@ const ContactPage = ({ onBack }) => {
   }, []);
 
   /* ── shared inline-style helpers ── */
-  const serif = { fontFamily: "'Cormorant Garamond', Georgia, serif" };
+  const serif = { fontFamily: "'Cormorant Garamond', Georgia, serif", fontVariantNumeric: "lining-nums" };
   const sans = { fontFamily: "'Outfit', system-ui, sans-serif" };
 
   return (
@@ -236,14 +236,14 @@ const ContactPage = ({ onBack }) => {
             {/* Phone number hero */}
             <div className="hob-r" style={{ marginBottom: '2.8rem' }}>
               <a href={`tel:+91${phoneNumber.replace(/\s/g, '')}`} style={{ textDecoration: 'none', display: 'block' }}>
-                <h1
+                <div
                   className="hob-phone hob-gold"
-                  style={{ ...serif, fontWeight: 300, margin: 0 }}
+                  style={{ fontFamily: 'Outfit, sans-serif', fontWeight: 300, margin: 0 }}
                 >
                   {phoneNumber}
-                </h1>
+                </div>
               </a>
-              <p
+              {/* <p
                 style={{
                   ...sans, margin: '1rem 0 0',
                   fontSize: '9px', letterSpacing: '0.45em',
@@ -251,7 +251,7 @@ const ContactPage = ({ onBack }) => {
                 }}
               >
                 Tap to call instantly
-              </p>
+              </p> */}
             </div>
 
             {/* Ornate divider */}
