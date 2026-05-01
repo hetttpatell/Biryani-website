@@ -671,6 +671,7 @@ const MenuOverlay = ({ onBack }) => {
   const [activeCategory, setActiveCategory] = useState('ALL');
   const [viewMode, setViewMode] = useState('list');
   const [isMobile, setIsMobile] = useState(false);
+  const pageRef = useRef(null);
 
   useEffect(() => {
     const check = () => setIsMobile(window.innerWidth < 768);
@@ -684,9 +685,20 @@ const MenuOverlay = ({ onBack }) => {
   useEffect(() => {
     window.scrollTo(0, 0);
     const ctx = gsap.context(() => {
-      gsap.from('.menu-header-item', { y: 48, opacity: 0, stagger: 0.09, duration: 1, ease: 'power4.out' });
-      gsap.from('.card-item', { y: 72, opacity: 0, stagger: 0.07, duration: 1.1, ease: 'power4.out', delay: 0.25 });
-    });
+      const tl = gsap.timeline({ delay: 0.05 });
+      tl.to('.hob-curtain-t', {
+        yPercent: -100,
+        duration: 1.15,
+        ease: 'power4.inOut',
+      })
+      .to(
+        '.hob-curtain-b',
+        { yPercent: 100, duration: 1.15, ease: 'power4.inOut' },
+        '<'
+      )
+      .from('.menu-header-item', { y: 48, opacity: 0, stagger: 0.09, duration: 1, ease: 'power4.out' }, '-=0.45')
+      .from('.card-item', { y: 72, opacity: 0, stagger: 0.07, duration: 1.1, ease: 'power4.out' }, '-=0.6');
+    }, pageRef);
     return () => ctx.revert();
   }, []);
 
@@ -714,7 +726,23 @@ const MenuOverlay = ({ onBack }) => {
   }, []);
 
   return (
-    <div style={{ position: 'relative', background: '#060606', minHeight: '100vh', overflowX: 'hidden' }}>
+    <div ref={pageRef} style={{ position: 'relative', background: '#060606', minHeight: '100vh', overflowX: 'hidden' }}>
+
+      {/* ── Curtains ── */}
+      <div
+        className="hob-curtain-t"
+        style={{
+          position: 'fixed', top: 0, left: 0, right: 0, height: '52vh',
+          background: '#07050A', zIndex: 200,
+        }}
+      />
+      <div
+        className="hob-curtain-b"
+        style={{
+          position: 'fixed', bottom: 0, left: 0, right: 0, height: '52vh',
+          background: '#07050A', zIndex: 200,
+        }}
+      />
 
       {/* ── Subtle repeated diagonal grain — position:absolute, not fixed ── */}
       <div style={{
@@ -732,7 +760,7 @@ const MenuOverlay = ({ onBack }) => {
       }} />
 
       {/* ── Main content ── */}
-      <div style={{ position: 'relative', zIndex: 2, maxWidth: 1440, margin: '0 auto', padding: '160px 20px 120px' }}>
+      <div style={{ position: 'relative', zIndex: 2, maxWidth: 1440, margin: '0 auto', padding: '240px 20px 120px' }}>
 
         {/* Header */}
         <header style={{ textAlign: 'center', marginBottom: 88 }}>
