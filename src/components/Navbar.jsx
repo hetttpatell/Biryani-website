@@ -131,7 +131,7 @@ const Navbar = ({ setView, currentView }) => {
 
             {/* Logo Icon and Text Stack */}
             <div ref={logoStackRef} className="flex flex-col items-center">
-              <span className="text-2xl md:text-[40px] font-header font-bold text-gold leading-none">H</span>
+              <img src="/biryanilogo.PNG" alt="Biryani Logo" className="h-10 md:h-[50px] w-auto object-contain" />
               <span className="text-[7px] md:text-[10px] tracking-[0.3em] font-header text-gold uppercase mt-1 md:mt-2 font-medium">House of</span>
               <span className="text-[10px] md:text-sm tracking-widest font-header text-white uppercase mt-0.5">Biryani and Rolls</span>
             </div>
